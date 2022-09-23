@@ -1,0 +1,5 @@
+CLI app using Java
+Take user input making an employee reimbursement request
+read & retrieve data to return to user.
+
+https://trello.com/b/vbCVHnQ9/kevin-foundations-project

@@ -1,3 +1,0 @@
-status,amount,description,uname
-
-Pending,1500,travel,12cwarden

@@ -3,24 +3,23 @@
 echo "Hello, $uname!";
 
 echo "Would you like to submit a new ticket, check ticket status, or log out?";
-read -p "(new/status/logout)" resp;
+read -p "(new/status/logout):  " resp;
 
-status="Pending"
-#ticket=1
+status="Pending" #auto defaults status to pending when ticket generated
+ticket=$RANDOM #generates random number between 1 - 32k
 if [[ $resp == "new" ]];
   then
   #implement form to complete and submit to database.
   echo "Status:  " $status;
-  #somehow create new ticket id?
-  #echo "Ticket:  " $ticket;
+  echo "Ticket:  " $ticket;
   read -p "Disbursement Amount:  " amount;
   read -p "Description for disbursement:  " description;
-  echo "$status,$amount,$description,$uname" >> tickets.txt;
+  echo "$status,$ticket,$uname,$amount,$description" >> tickets.csv;
   #ticket+=1
 elif [[ $resp == "status" ]];
   then
   #implement code to pull existing tickets related to this account.
-  cat tickets.txt | grep  -B3 "$uname";
+  sh ticketparser.sh tickets.csv | grep  -A3 -B2 "$uname";
 else
   echo "Have a good day!";
 fi

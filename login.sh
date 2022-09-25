@@ -18,8 +18,8 @@ if [[ $status = "existing" ]];
   #implement catch to check if user is valid. If so, implement imbedded
   #if to check for employee/manager
   export uname;
-  #./components/employee.sh;
-  ./components/manager.sh;
+  ./components/employee.sh;
+  #./components/manager.sh;
   exit 0;
 else
 #if not member, return reason for no information. Potentially utilize wrap to beginning?

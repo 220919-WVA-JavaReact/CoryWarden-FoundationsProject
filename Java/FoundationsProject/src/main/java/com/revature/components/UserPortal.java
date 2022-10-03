@@ -35,7 +35,7 @@ public class UserPortal {
 
                 //Store ticket to database.
                 Tickets newTick = new Tickets(cory.getUsername(), cory.getId(), amount, description);
-                System.out.println( newTick.getId() + " " +newTick.getAmount() + " " + newTick.getDescription() + " " + newTick.getAuthId() + " " + newTick.getStatus());
+                System.out.println( newTick.getId() + " " + newTick.getAmount() + " " + newTick.getDescription() + " " + newTick.getAuthId() + " " + newTick.getStatus());
             } else if (option1.equals("V") || option1.equals("v")) {
                 //View all submitted tickets?
                 System.out.println("Figure out way to pull tickets from database.");

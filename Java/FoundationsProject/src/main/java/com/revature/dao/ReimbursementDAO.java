@@ -5,9 +5,11 @@ import com.revature.models.Reimbursement;
 public interface ReimbursementDAO {
 
     //get by reimbursement id number
-    Reimbursement getByReimbursementId (int id);
+    Reimbursement getByReimbursementAuth (int id);
 
     //add new reimbursement to database
     //get all reimbursements from user?
+    //approve or deny
+    boolean changeStatus(String choice, int id, String status);
 
 }

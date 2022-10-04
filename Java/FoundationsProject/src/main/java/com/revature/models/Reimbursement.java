@@ -9,7 +9,6 @@ public class Reimbursement {
     private int authId;
     private float amount;
     private String description;
-
     //Constructors
 
     public Reimbursement(int id, String status, String username, int authId, float amount, String description) {

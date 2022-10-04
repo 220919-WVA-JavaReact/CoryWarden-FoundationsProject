@@ -1,6 +1,5 @@
 package com.revature;
 
-import com.revature.components.Users;
 import com.revature.service.UserService;
 
 import java.util.Scanner;
@@ -10,7 +9,9 @@ public class Main {
     public static UserService us = new UserService();
     public static void main(String[] args) {
 
-        System.out.println("Press 1 to login. Press 2 to register");
+        System.out.println("Welcome! Would you like to register or login?");
+        System.out.println("1) Login");
+        System.out.println("2) Register");
         Scanner scan = new Scanner(System.in);
         int choice = scan.nextInt();
         scan.nextLine();
@@ -38,6 +39,7 @@ public class Main {
             String username = scan.nextLine();
             System.out.println("Please enter your password");
             String pw = scan.nextLine();
+
 
             //Add some implementation to check if username/email already exists?
             System.out.println("Success! You are now able to login.");

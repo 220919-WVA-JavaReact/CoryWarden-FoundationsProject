@@ -8,6 +8,7 @@ public interface UserDAO {
     User getByUsername(String username);
 
     //add new user into database
+    User addUser(String fName, String lName, String email, String username, String pw);
     //find login info from database
 
 }

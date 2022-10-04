@@ -20,6 +20,18 @@ public class Reimbursement {
         this.description = description;
     }
 
+    public Reimbursement(int id, String status) {
+        this.id = id;
+        this.status = status;
+    }
+
+    public Reimbursement(String username, int authId, float amount, String description) {
+        this.username = username;
+        this.authId = authId;
+        this.amount = amount;
+        this.description = description;
+    }
+
     public Reimbursement() {
     }
 

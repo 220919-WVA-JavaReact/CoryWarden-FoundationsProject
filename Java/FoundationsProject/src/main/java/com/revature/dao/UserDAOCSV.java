@@ -3,7 +3,6 @@ package com.revature.dao;
 import com.revature.models.User;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -28,11 +27,17 @@ public class UserDAOCSV implements UserDAO {
                     return new User(Integer.parseInt(info[0]), info[1], info[2], info[3], info[4], info[5], info[6]);
                 }
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
         return null;
     }
+
+    @Override
+    public User addUser(String fName, String lName, String email, String username, String pw) {
+        System.out.println("Called out DAO method. Not implemented");
+        return null;
+    }
+
+
 }

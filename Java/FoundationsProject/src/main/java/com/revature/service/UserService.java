@@ -10,6 +10,7 @@ import java.util.Scanner;
 public class UserService {
 
     UserDAO ud = new UserDaoJDBC();
+    ReimbursementService rs = new ReimbursementService();
     Scanner scan = new Scanner(System.in);
 
     public User login() {
@@ -56,6 +57,61 @@ public class UserService {
         return ud.addUser(newUser);
     }
 
+    public void portal(User loggedInUser) {
+        String userRole = loggedInUser.getRole();
+        if (userRole.equals("employee")) {
+            System.out.println("Welcome, " + loggedInUser.getfName() +"!");
+            System.out.println("What would you like to do?");
+            System.out.println("1) View your tickets");
+            System.out.println("2) Submit a new ticket");
+            System.out.println("3) Logout");
+            int userChoice = scan.nextInt();
+            scan.nextLine();
+
+            //Intake Author ID to get list of reimbursement tickets, or to store for new reimbursement ticket.
+            int authId = loggedInUser.getId();
+            if (userChoice == 1) {
+                rs.viewPersonalTickets(authId);
+            } else if (userChoice == 2) {
+                rs.addReimbursement(loggedInUser.getUsername(), loggedInUser.getId());
+            } else {
+                System.out.println("Option not eligible.");
+            }
+        } else if (userRole.equals("manager")) {
+            System.out.println("Welcome, " + loggedInUser.getfName() +"!");
+            System.out.println("What would you like to do?");
+            System.out.println("1) View all pending tickets");
+            System.out.println("2) View all approved tickets");
+            System.out.println("3) View all denied tickets");
+            System.out.println("4) Change role of employee");
+            System.out.println("5) Logout");
+            int userChoice = scan.nextInt();
+            scan.nextLine();
+
+            //Get tickets by status choice entered when choosing above
+            if (userChoice == 1) {
+                String status = "Pending";
+                ReimbursementService.getTicketsByStatus(status);
+                rs.statusChange();
+            } else if (userChoice == 2) {
+                String status = "Approved";
+                ReimbursementService.getTicketsByStatus(status);
+            } else if (userChoice == 3) {
+                String status = "Denied";
+                ReimbursementService.getTicketsByStatus(status);
+            } else if (userChoice == 4) {
+                promoteUser();
+            } else if (userChoice == 5) {
+                System.out.println("Now logging out.");
+            } else {
+                System.out.println("Option not eligible.");
+            }
+        } else {
+            System.out.println("You do not have an established role. Please get with your manager.");
+        }
+        //return loggedInUser;
+    }
+
     //run new method to view all users
     public void getAllUsers() {
         System.out.println("Using the database to return all users");
@@ -68,8 +124,8 @@ public class UserService {
         }
     }
 
-    public User promoteUser() {
-        ud.getAllUsers();
+    public void promoteUser() {
+        getAllUsers();
         System.out.println("Above are all users-------");
         System.out.println("Please enter the username of who you would like to switch the role of");
         String promoted = scan.nextLine();
@@ -83,6 +139,9 @@ public class UserService {
         scan.nextLine();
 
         //update role based off of username and integer response
-        return ud.updateRole(u, newRole);
+        ud.updateRole(u, newRole);
+
+
+
     }
 }

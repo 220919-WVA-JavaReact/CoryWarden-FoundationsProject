@@ -37,7 +37,7 @@ public class ReimbursementService {
         }
     }
 
-    public Reimbursement statusChange() {
+    public void statusChange() {
         System.out.println("Enter ticket number: ");
         int ticketId = scan.nextInt();
         scan.nextLine();
@@ -60,10 +60,10 @@ public class ReimbursementService {
             System.out.println("Choice not valid.");
 
         }
-        return updated;
+
     }
 
-    public Reimbursement addReimbursement (String username, int authId) {
+    public void addReimbursement (String username, int authId) {
         //Prompt register questions;
         System.out.println("New Reimbursement------------");
         System.out.println("Please enter the reimbursement amount");
@@ -75,7 +75,7 @@ public class ReimbursementService {
 
         Reimbursement newTicket = new Reimbursement(authId, username, amount, description);
         //add reimbursement to database and return reimbursement.
-        return rd.addReimbursement(newTicket);
+        rd.addReimbursement(newTicket);
     }
 
 }

@@ -13,8 +13,8 @@ ticket serial UNIQUE NOT NULL,
 status varchar(40) DEFAULT 'Pending',
 authID int REFERENCES users,
 username varchar(40),
-amount int,
-description varchar(255)
+amount int NOT NULL,
+description varchar(255) NOT NULL
 );
 
 INSERT INTO users (fName, lName, email, username, pw) VALUES('Cory', 'Warden', '12cwarden@gmail.com', '12cwarden', 'test123');

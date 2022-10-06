@@ -41,7 +41,6 @@ public class ReimbursementService {
         System.out.println("Enter ticket number: ");
         int ticketId = scan.nextInt();
         scan.nextLine();
-        Reimbursement updated = new Reimbursement();
         System.out.println("Would you like to Approve or Deny?");
         System.out.println("1) Approve");
         System.out.println("2) Deny");
@@ -51,11 +50,9 @@ public class ReimbursementService {
         if (choice == 1) {
             System.out.println("Ticket has been approved.");
             rd.updateStatus("Approved", ticketId);
-            updated = new Reimbursement(ticketId);
         } else if (choice == 2) {
             System.out.println("Ticket has been denied");
             rd.updateStatus("Denied", ticketId);
-            updated = new Reimbursement(ticketId);
         } else {
             System.out.println("Choice not valid.");
 

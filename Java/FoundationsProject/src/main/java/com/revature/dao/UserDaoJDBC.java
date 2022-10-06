@@ -1,6 +1,5 @@
 package com.revature.dao;
 
-import com.revature.models.Reimbursement;
 import com.revature.models.User;
 import com.revature.util.ConnectionUtil;
 
@@ -15,6 +14,7 @@ public class UserDaoJDBC implements UserDAO {
         try (Connection conn = ConnectionUtil.getConn()){
             String sql = "SELECT * FROM users WHERE username = ?";
             //Put ? wherever information will receive input
+            assert conn != null;
             PreparedStatement pstmt = conn.prepareStatement(sql);
             //Answer ? below with parameter and variable/input
             pstmt.setString(1, username);
@@ -47,6 +47,7 @@ public class UserDaoJDBC implements UserDAO {
         try (Connection conn = ConnectionUtil.getConn()) {
             String sql = "INSERT INTO users (fName,lName,email,username,pw) VALUES (?,?,?,?,?) RETURNING *";
             //Put ? wherever information will receive input
+            assert conn != null;
             PreparedStatement pstmt = conn.prepareStatement(sql);
             //Answer ? below with parameter and variable/input
             pstmt.setString(1, u.getfName());
@@ -54,7 +55,7 @@ public class UserDaoJDBC implements UserDAO {
             pstmt.setString(3, u.getEmail());
             pstmt.setString(4, u.getUsername());
             pstmt.setString(5, u.getPw());
-            ResultSet rs = pstmt.executeQuery();;
+            ResultSet rs = pstmt.executeQuery();
             if (rs != null) {
                 rs.next();
                 int id = rs.getInt("id");
@@ -82,6 +83,7 @@ public class UserDaoJDBC implements UserDAO {
 
         List<User> users = new ArrayList<>();
         try (Connection conn = ConnectionUtil.getConn()){
+            assert conn != null;
             Statement stmt = conn.createStatement();
             String sql = "SELECT u.id, u.fname, u.lname, u.email, u.username, u.\"role\"  FROM users u ORDER BY id";
             ResultSet rs = stmt.executeQuery(sql);
@@ -111,6 +113,7 @@ public class UserDaoJDBC implements UserDAO {
     public User updateRole(User u, int newRole) {
         try (Connection conn = ConnectionUtil.getConn()) {
             String sql = "UPDATE users SET role = ? WHERE username = ? RETURNING *";
+            assert conn != null;
             PreparedStatement pstmt = conn.prepareStatement(sql);
             //pstmt.setString(1, "manager");
             pstmt.setString(2, u.getUsername());

@@ -16,6 +16,7 @@ public class ReimbursementDaoJDBC implements ReimbursementDAO {
         List<Reimbursement> reimbursements = new ArrayList<>();
         try {
             String sql = "SELECT * FROM reimbursement WHERE authid = ? ORDER BY ticket";
+            assert conn != null;
             PreparedStatement pstmt = conn.prepareStatement(sql);
             //String sql = "SELECT * FROM users WHERE id = ;";
             pstmt.setInt(1, authId);
@@ -27,7 +28,7 @@ public class ReimbursementDaoJDBC implements ReimbursementDAO {
                 String status = rs.getString("status");
                 authId = rs.getInt("authid");
                 String username = rs.getString("username");
-                Float amount = rs.getFloat("amount");
+                float amount = rs.getFloat("amount");
                 String desc = rs.getString("description");
 
                 Reimbursement r = new Reimbursement(id, status, authId, username, amount, desc);
@@ -47,6 +48,7 @@ public class ReimbursementDaoJDBC implements ReimbursementDAO {
         Reimbursement r = new Reimbursement();
         try {
             String sql = "SELECT * FROM reimbursement WHERE ticket = ? ORDER BY ticket";
+            assert conn != null;
             PreparedStatement pstmt = conn.prepareStatement(sql);
             //String sql = "SELECT * FROM users WHERE id = ;";
             pstmt.setInt(1, id);
@@ -58,7 +60,7 @@ public class ReimbursementDaoJDBC implements ReimbursementDAO {
                 String status = rs.getString("status");
                 int authId = rs.getInt("authid");
                 String username = rs.getString("username");
-                Float amount = rs.getFloat("amount");
+                float amount = rs.getFloat("amount");
                 String desc = rs.getString("description");
 
                 r = new Reimbursement(id, status, authId, username, amount, desc);
@@ -76,6 +78,7 @@ public class ReimbursementDaoJDBC implements ReimbursementDAO {
         List<Reimbursement> tickets = new ArrayList<>();
         try (Connection conn = ConnectionUtil.getConn()){
             String sql = "SELECT * FROM reimbursement WHERE status = ? ORDER BY ticket";
+            assert conn != null;
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, status);
             ResultSet rs = pstmt.executeQuery();
@@ -86,7 +89,7 @@ public class ReimbursementDaoJDBC implements ReimbursementDAO {
                 status = rs.getString("status");
                 int authId = rs.getInt("authid");
                 String username = rs.getString("username");
-                Float amount = rs.getFloat("amount");
+                float amount = rs.getFloat("amount");
                 String desc = rs.getString("description");
 
                 Reimbursement r = new Reimbursement(id, status, authId, username, amount, desc);
@@ -106,6 +109,7 @@ public class ReimbursementDaoJDBC implements ReimbursementDAO {
         try (Connection conn = ConnectionUtil.getConn()) {
             String sql = "INSERT INTO reimbursement (authId,username,amount,description) VALUES (?,?,?,?) RETURNING *";
             //Put ? wherever information will receive input
+            assert conn != null;
             PreparedStatement pstmt = conn.prepareStatement(sql);
             //Answer ? below with parameter and variable/input
             pstmt.setInt(1, r.getAuthId());
@@ -119,7 +123,7 @@ public class ReimbursementDaoJDBC implements ReimbursementDAO {
                 String status = rs.getString("status");
                 int authId = rs.getInt("authid");
                 String username = rs.getString("username");
-                Float amount = rs.getFloat("amount");
+                float amount = rs.getFloat("amount");
                 String desc = rs.getString("description");
 
                 r = new Reimbursement(id, status, authId, username, amount, desc);
@@ -137,6 +141,7 @@ public class ReimbursementDaoJDBC implements ReimbursementDAO {
         Reimbursement r = new Reimbursement();
         try (Connection conn = ConnectionUtil.getConn()) {
             String sql = "UPDATE reimbursement SET status = ? WHERE ticket = ? RETURNING *";
+            assert conn != null;
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, status);
             pstmt.setInt(2, ticketId);
@@ -147,7 +152,7 @@ public class ReimbursementDaoJDBC implements ReimbursementDAO {
                 status = rs.getString("status");
                 int authId = rs.getInt("authid");
                 String username = rs.getString("username");
-                Float amount = rs.getFloat("amount");
+                float amount = rs.getFloat("amount");
                 String desc = rs.getString("description");
 
                 r = new Reimbursement(id, status, authId, username, amount, desc);

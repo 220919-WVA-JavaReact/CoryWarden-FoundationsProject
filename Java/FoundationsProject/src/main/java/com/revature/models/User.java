@@ -40,12 +40,6 @@ public class User {
         this.pw = pw;
     }
 
-    public User(int id, String fName, String lName, String username, String role) {
-        this.id = id;
-        this.username = username;
-        this.role = role;
-    }
-
     public User() {
     }
 

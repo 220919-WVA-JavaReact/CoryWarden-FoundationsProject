@@ -27,15 +27,6 @@ public class Reimbursement {
         this.description = description;
     }
 
-    public Reimbursement(int id, String status) {
-        this.id = id;
-        this.status = status;
-    }
-
-    public Reimbursement(int id) {
-        this.id = id;
-    }
-
     public Reimbursement() {
     }
 

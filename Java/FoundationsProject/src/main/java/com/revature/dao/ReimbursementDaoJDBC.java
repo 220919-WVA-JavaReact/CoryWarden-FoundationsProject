@@ -35,6 +35,7 @@ public class ReimbursementDaoJDBC implements ReimbursementDAO {
 
             }
         } catch (SQLException e) {
+            System.out.println("Unable to fetch ticket. Please see below for assistance");
             e.printStackTrace();
         }
         return reimbursements;
@@ -64,6 +65,7 @@ public class ReimbursementDaoJDBC implements ReimbursementDAO {
 
             }
         } catch (SQLException e) {
+            System.out.println("Unable to fetch ticket. Please see below for assistance");
             e.printStackTrace();
         }
         return r;
@@ -92,6 +94,7 @@ public class ReimbursementDaoJDBC implements ReimbursementDAO {
 
             }
         } catch (SQLException e) {
+            System.out.println("Unable to fetch ticket. Please see below for assistance");
             e.printStackTrace();
         }
         return tickets;
@@ -123,7 +126,7 @@ public class ReimbursementDaoJDBC implements ReimbursementDAO {
                 System.out.println("Ticket " + id + " has been opened.");
             }
         } catch (SQLException e) {
-            System.out.println("Unable to add ticket to database.");
+            System.out.println("Unable to add ticket to database. Please see below for assistance");
             e.printStackTrace();
         }
         return r;
@@ -151,7 +154,7 @@ public class ReimbursementDaoJDBC implements ReimbursementDAO {
                 System.out.println("Ticket " + r.getId() + " has been updated to: " + r.getStatus());
             }
         } catch (SQLException e) {
-            System.out.println("This ticket was not updated.");
+            System.out.println("This ticket was not updated. Please see below for assistance");
             e.printStackTrace();
         }
         return r;

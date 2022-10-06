@@ -75,8 +75,7 @@ public class ReimbursementService {
 
         Reimbursement newTicket = new Reimbursement(authId, username, amount, description);
         //add reimbursement to database and return reimbursement.
-        Reimbursement newReim = rd.addReimbursement(newTicket);
-        return newReim;
+        return rd.addReimbursement(newTicket);
     }
 
 }

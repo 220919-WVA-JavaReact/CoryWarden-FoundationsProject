@@ -36,6 +36,7 @@ public class UserDaoJDBC implements UserDAO {
                 u = new User(id, first, last, email, username, pw, role);
             }
         } catch (SQLException e) {
+            System.out.println("Unable to fetch user. Please see below for assistance");
             e.printStackTrace();
         }
         return u;
@@ -69,7 +70,7 @@ public class UserDaoJDBC implements UserDAO {
                 //System.out.println("addUser sysout: " + u); --Checking where user is losing role
             }
         } catch (SQLException e) {
-            System.out.println("Unable to add user.");
+            System.out.println("Unable to add user. Please see below for assistance");
             e.printStackTrace();
         }
         return u;
@@ -100,6 +101,7 @@ public class UserDaoJDBC implements UserDAO {
 
             }
         } catch (SQLException e) {
+            System.out.println("Unable to fetch all Users. Please see below for assistance");
             e.printStackTrace();
         }
         return users;
@@ -135,7 +137,7 @@ public class UserDaoJDBC implements UserDAO {
                 System.out.println(username + " has now been updated to: " + role);
             }
         } catch (SQLException e) {
-            System.out.println("This ticket was not updated.");
+            System.out.println("This ticket was not updated. Please see below for assistance");
             e.printStackTrace();
         }
         return u;

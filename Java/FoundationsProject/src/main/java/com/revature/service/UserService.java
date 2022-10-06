@@ -27,7 +27,6 @@ public class UserService {
          */
         User loggedInUser = ud.getByUsername(username.toLowerCase());
         if (loggedInUser.getPw().equals(password)) {
-            System.out.println("You are an existing user.");
             System.out.println("+-------------------------------------+");
             return loggedInUser;
         } else {
@@ -72,8 +71,12 @@ public class UserService {
             int authId = loggedInUser.getId();
             if (userChoice == 1) {
                 rs.viewPersonalTickets(authId);
+                System.out.println("+----------------------------------------------------+");
+                portal(loggedInUser);
             } else if (userChoice == 2) {
                 rs.addReimbursement(loggedInUser.getUsername(), loggedInUser.getId());
+                System.out.println("+----------------------------------------------------+");
+                portal(loggedInUser);
             } else {
                 System.out.println("Option not eligible.");
             }
@@ -93,14 +96,22 @@ public class UserService {
                 String status = "Pending";
                 ReimbursementService.getTicketsByStatus(status);
                 rs.statusChange();
+                System.out.println("+----------------------------------------------------+");
+                portal(loggedInUser);
             } else if (userChoice == 2) {
                 String status = "Approved";
                 ReimbursementService.getTicketsByStatus(status);
+                System.out.println("+----------------------------------------------------+");
+                portal(loggedInUser);
             } else if (userChoice == 3) {
                 String status = "Denied";
                 ReimbursementService.getTicketsByStatus(status);
+                System.out.println("+----------------------------------------------------+");
+                portal(loggedInUser);
             } else if (userChoice == 4) {
                 promoteUser();
+                System.out.println("+----------------------------------------------------+");
+                portal(loggedInUser);
             } else if (userChoice == 5) {
                 System.out.println("Now logging out.");
             } else {
@@ -140,8 +151,6 @@ public class UserService {
 
         //update role based off of username and integer response
         ud.updateRole(u, newRole);
-
-
 
     }
 }

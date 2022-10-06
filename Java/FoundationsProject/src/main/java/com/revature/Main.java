@@ -59,7 +59,8 @@ public class Main {
                 System.out.println("1) View all pending tickets");
                 System.out.println("2) View all approved tickets");
                 System.out.println("3) View all denied tickets");
-                System.out.println("4) Logout");
+                System.out.println("4) Change role of employee");
+                System.out.println("5) Logout");
                 int userChoice = scan.nextInt();
                 scan.nextLine();
 
@@ -74,6 +75,8 @@ public class Main {
                     String status = "Denied";
                     ReimbursementService.getTicketsByStatus(status);
                 } else if (userChoice == 4) {
+                    us.promoteUser();
+                } else if (userChoice == 5) {
                    System.out.println("Now logging out.");
                 } else {
                     System.out.println("Option not eligible.");

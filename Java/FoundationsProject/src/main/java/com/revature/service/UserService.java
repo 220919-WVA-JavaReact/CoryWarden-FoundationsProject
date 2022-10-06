@@ -53,8 +53,7 @@ public class UserService {
         //------------------Add some implementation to check if username/email already exists?
         User newUser = new User(fName, lName, email, username, pw);
         //add user to the database and return new user.
-        User loggedInUser = ud.addUser(newUser);
-        return loggedInUser;
+        return ud.addUser(newUser);
     }
 
     //run new method to view all users
@@ -67,5 +66,23 @@ public class UserService {
             System.out.println("ID: " + user.getId() + " || Name: " + user.getfName() + " " + user.getlName() +
                     " || Email: " + user.getEmail() + " || Username: " + user.getUsername() + " || Role: " + user.getRole());
         }
+    }
+
+    public User promoteUser() {
+        ud.getAllUsers();
+        System.out.println("Above are all users-------");
+        System.out.println("Please enter the username of who you would like to switch the role of");
+        String promoted = scan.nextLine();
+        //Relay user information based off of username intake
+        User u = ud.getByUsername(promoted);
+        System.out.println("What would you like their new position to be?");
+        System.out.println("1) Manager");
+        System.out.println("2) Employee");
+        //Intake response on which integer to change in updateRole
+        int newRole = scan.nextInt();
+        scan.nextLine();
+
+        //update role based off of username and integer response
+        return ud.updateRole(u, newRole);
     }
 }

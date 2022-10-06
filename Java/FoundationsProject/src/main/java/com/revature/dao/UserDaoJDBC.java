@@ -1,5 +1,6 @@
 package com.revature.dao;
 
+import com.revature.models.Reimbursement;
 import com.revature.models.User;
 import com.revature.util.ConnectionUtil;
 
@@ -102,5 +103,41 @@ public class UserDaoJDBC implements UserDAO {
             e.printStackTrace();
         }
         return users;
+    }
+
+    @Override
+    public User updateRole(User u, int newRole) {
+        try (Connection conn = ConnectionUtil.getConn()) {
+            String sql = "UPDATE users SET role = ? WHERE username = ? RETURNING *";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            //pstmt.setString(1, "manager");
+            pstmt.setString(2, u.getUsername());
+
+            if (newRole == 1) {
+                //if user inputs 1, make chosen user a manager
+                pstmt.setString(1, "manager");
+            } else {
+                //if user inputs anything else, make chosen user an employee.
+                pstmt.setString(1, "employee");
+            }
+            ResultSet rs = pstmt.executeQuery();
+            if (rs != null) {
+                rs.next();
+                int id = rs.getInt("id");
+                String first = rs.getString("fname");
+                String last = rs.getString("lname");
+                String email = rs.getString("email");
+                String username = rs.getString("username");
+                String pw = rs.getString("pw");
+                String role = rs.getString("role");
+
+                u = new User(id, first, last, email, username, pw, role);
+                System.out.println(username + " has now been updated to: " + role);
+            }
+        } catch (SQLException e) {
+            System.out.println("This ticket was not updated.");
+            e.printStackTrace();
+        }
+        return u;
     }
 }

@@ -1,14 +1,15 @@
 package com.revature.service;
 
 import com.revature.dao.UserDAO;
-import com.revature.dao.UserDAOCSV;
+import com.revature.dao.UserDaoJDBC;
 import com.revature.models.User;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class UserService {
 
-    UserDAO ud = new UserDAOCSV();
+    UserDAO ud = new UserDaoJDBC();
     Scanner scan = new Scanner(System.in);
 
     public User login() {
@@ -49,9 +50,22 @@ public class UserService {
         String pw = scan.nextLine();
 
 
-        //Add some implementation to check if username/email already exists?
-        System.out.println("Success! You are now able to login.");
-        User loggedInUser = ud.addUser(fName, lName, email, username, pw);
+        //------------------Add some implementation to check if username/email already exists?
+        User newUser = new User(fName, lName, email, username, pw);
+        //add user to the database and return new user.
+        User loggedInUser = ud.addUser(newUser);
         return loggedInUser;
+    }
+
+    //run new method to view all users
+    public void getAllUsers() {
+        System.out.println("Using the database to return all users");
+        List<User> userList = ud.getAllUsers();
+
+        //cycle through with enhanced for loop to print all database rows
+        for (User user : userList) {
+            System.out.println("ID: " + user.getId() + " || Name: " + user.getfName() + " " + user.getlName() +
+                    " || Email: " + user.getEmail() + " || Username: " + user.getUsername() + " || Role: " + user.getRole());
+        }
     }
 }

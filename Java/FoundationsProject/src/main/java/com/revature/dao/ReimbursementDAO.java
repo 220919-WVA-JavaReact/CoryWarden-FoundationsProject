@@ -7,18 +7,18 @@ import java.util.List;
 public interface ReimbursementDAO {
 
     //get by reimbursements by user
-    Reimbursement getByReimbursementAuth (int authId);
+    List<Reimbursement> getByReimbursementAuth (int authId);
 
-    //get by reimbursement ticket id
     Reimbursement getByTicketId (int id);
 
-    //add new reimbursement to database
-    Reimbursement addReimbursement (String username, int authId, float amount, String description);
+    //get by reimbursement ticket id
+    List<Reimbursement> getTicketsByStatus (String status);
 
-    //get all reimbursements for manager view?
-    Reimbursement getByReimbursementStatus (String status);
+    //add new reimbursement to database
+    Reimbursement addReimbursement (Reimbursement r);
+
 
     //approve or deny
-    boolean changeStatus(Reimbursement reimbursement);
+    Reimbursement updateStatus(String status, int ticketId);
 
 }

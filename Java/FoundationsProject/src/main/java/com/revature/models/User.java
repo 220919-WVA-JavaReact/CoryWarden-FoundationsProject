@@ -23,12 +23,27 @@ public class User {
         this.role = role;
     }
 
+    public User(int id, String fName, String lName, String email, String username, String role) {
+        this.id = id;
+        this.fName = fName;
+        this.lName = lName;
+        this.email = email;
+        this.username = username;
+        this.role = role;
+    }
+
     public User(String fName, String lName, String email, String username, String pw) {
         this.fName = fName;
         this.lName = lName;
         this.email = email;
         this.username = username;
         this.pw = pw;
+    }
+
+    public User(int id, String fName, String lName, String username, String role) {
+        this.id = id;
+        this.username = username;
+        this.role = role;
     }
 
     public User() {

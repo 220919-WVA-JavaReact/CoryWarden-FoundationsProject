@@ -15,6 +15,7 @@ public class Main {
         System.out.println("Welcome! Would you like to register or login?");
         System.out.println("1) Login");
         System.out.println("2) Register");
+        System.out.println("3) Print users");
         Scanner scan = new Scanner(System.in);
         int choice = scan.nextInt();
         scan.nextLine();
@@ -27,13 +28,16 @@ public class Main {
         } else if (choice == 2) {
             //Call REGISTER logic from UserService
             loggedInUser = us.register();
+            //System.out.println(loggedInUser); --Checking where user is losing role
         } else {
-            System.out.println("Incorrect input");
+           // System.out.println("Incorrect input");
+            us.getAllUsers();
         }
 
         if (loggedInUser != null) {
             String userRole = loggedInUser.getRole();
             if (userRole.equals("employee")) {
+                System.out.println("Welcome, " + loggedInUser.getfName() +"!");
                 System.out.println("What would you like to do?");
                 System.out.println("1) View your tickets");
                 System.out.println("2) Submit a new ticket");
@@ -43,13 +47,14 @@ public class Main {
 
                 int authId = loggedInUser.getId();
                 if (userChoice == 1) {
-                    ReimbursementService.viewPersonalTickets(authId);
+                    rs.viewPersonalTickets(authId);
                 } else if (userChoice == 2) {
                   rs.addReimbursement(loggedInUser.getUsername(), loggedInUser.getId());
                 } else {
                     System.out.println("Option not eligible.");
                 }
             } else if (userRole.equals("manager")) {
+                System.out.println("Welcome, " + loggedInUser.getfName() +"!");
                 System.out.println("What would you like to do?");
                 System.out.println("1) View all pending tickets");
                 System.out.println("2) View all approved tickets");
@@ -60,16 +65,16 @@ public class Main {
 
                 if (userChoice == 1) {
                     String status = "Pending";
-                    ReimbursementService.viewAllTickets(status);
+                    ReimbursementService.getTicketsByStatus(status);
                     rs.statusChange();
                 } else if (userChoice == 2) {
                     String status = "Approved";
-                    ReimbursementService.viewAllTickets(status);
+                    ReimbursementService.getTicketsByStatus(status);
                 } else if (userChoice == 3) {
                     String status = "Denied";
-                    ReimbursementService.viewAllTickets(status);
+                    ReimbursementService.getTicketsByStatus(status);
                 } else if (userChoice == 4) {
-                    System.out.println("Now logging out.");
+                   System.out.println("Now logging out.");
                 } else {
                     System.out.println("Option not eligible.");
                 }

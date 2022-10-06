@@ -5,15 +5,22 @@ import java.util.Objects;
 public class Reimbursement {
     private int id;
     private String status;
-    private String username;
     private int authId;
+    private String username;
     private float amount;
     private String description;
     //Constructors
 
-    public Reimbursement(int id, String status, String username, int authId, float amount, String description) {
+    public Reimbursement(int id, String status, int authId, String username, float amount, String description) {
         this.id = id;
         this.status = status;
+        this.username = username;
+        this.authId = authId;
+        this.amount = amount;
+        this.description = description;
+    }
+
+    public Reimbursement(int authId, String username, float amount, String description) {
         this.username = username;
         this.authId = authId;
         this.amount = amount;
@@ -25,11 +32,8 @@ public class Reimbursement {
         this.status = status;
     }
 
-    public Reimbursement(String username, int authId, float amount, String description) {
-        this.username = username;
-        this.authId = authId;
-        this.amount = amount;
-        this.description = description;
+    public Reimbursement(int id) {
+        this.id = id;
     }
 
     public Reimbursement() {

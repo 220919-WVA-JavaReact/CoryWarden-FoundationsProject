@@ -1,2 +1,0 @@
-# CoryWarden-FoundationsProject
-Foundational project

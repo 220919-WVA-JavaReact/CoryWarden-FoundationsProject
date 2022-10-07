@@ -1,5 +1,6 @@
 package com.revature.service;
 
+import com.revature.Main;
 import com.revature.dao.UserDAO;
 import com.revature.dao.UserDaoJDBC;
 import com.revature.models.User;
@@ -12,6 +13,7 @@ public class UserService {
     UserDAO ud = new UserDaoJDBC();
     ReimbursementService rs = new ReimbursementService();
     Scanner scan = new Scanner(System.in);
+    Main menu;
 
     public User login() {
         //Main Menu
@@ -109,7 +111,7 @@ public class UserService {
                 System.out.println("+----------------------------------------------------+");
                 portal(loggedInUser);
             } else if (userChoice == 4) {
-                promoteUser();
+                promoteUser(loggedInUser);
                 System.out.println("+----------------------------------------------------+");
                 portal(loggedInUser);
             } else if (userChoice == 5) {
@@ -135,22 +137,27 @@ public class UserService {
         }
     }
 
-    public void promoteUser() {
+    public void promoteUser(User loggedInUser) {
         getAllUsers();
         System.out.println("Above are all users-------");
         System.out.println("Please enter the username of who you would like to switch the role of");
         String promoted = scan.nextLine();
         //Relay user information based off of username intake
         User u = ud.getByUsername(promoted);
-        System.out.println("What would you like their new position to be?");
-        System.out.println("1) Manager");
-        System.out.println("2) Employee");
-        //Intake response on which integer to change in updateRole
-        int newRole = scan.nextInt();
-        scan.nextLine();
+        if (u.getUsername().equals(loggedInUser.getUsername())) {
+            System.out.println("You cannot change your own status.");
+        } else {
+            System.out.println("What would you like their new position to be?");
+            System.out.println("1) Manager");
+            System.out.println("2) Employee");
+            //Intake response on which integer to change in updateRole
+            int newRole = scan.nextInt();
+            scan.nextLine();
 
-        //update role based off of username and integer response
-        ud.updateRole(u, newRole);
+            //update role based off of username and integer response
+            ud.updateRole(u, newRole);
+        }
+
 
     }
 }

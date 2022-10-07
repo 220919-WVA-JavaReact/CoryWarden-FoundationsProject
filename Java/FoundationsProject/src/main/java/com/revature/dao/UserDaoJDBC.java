@@ -71,7 +71,7 @@ public class UserDaoJDBC implements UserDAO {
                 //System.out.println("addUser sysout: " + u); --Checking where user is losing role
             }
         } catch (SQLException e) {
-            System.out.println("Unable to add user. Please see below for assistance");
+            System.out.println("Unable to add user. Username or email is already in use.");
             e.printStackTrace();
         }
         return u;

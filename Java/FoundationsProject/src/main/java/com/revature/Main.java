@@ -15,7 +15,7 @@ public class Main {
         System.out.println("Welcome! Would you like to register or login?");
         System.out.println("1) Login");
         System.out.println("2) Register");
-        System.out.println("3) Print users");
+        //System.out.println("3) Print users");
         Scanner scan = new Scanner(System.in);
         int choice = scan.nextInt();
         scan.nextLine();

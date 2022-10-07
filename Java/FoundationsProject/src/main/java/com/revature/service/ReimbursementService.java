@@ -69,10 +69,13 @@ public class ReimbursementService {
         System.out.println("Please enter a description for this amount");
         String description = scan.nextLine();
 
-
-        Reimbursement newTicket = new Reimbursement(authId, username, amount, description);
-        //add reimbursement to database and return reimbursement.
-        rd.addReimbursement(newTicket);
+        if (description.trim().equals("")) {
+            System.out.println("Unable to submit ticket. No description given.");
+        } else {
+            Reimbursement newTicket = new Reimbursement(authId, username, amount, description);
+            //add reimbursement to database and return reimbursement.
+            rd.addReimbursement(newTicket);
+        }
     }
 
 }

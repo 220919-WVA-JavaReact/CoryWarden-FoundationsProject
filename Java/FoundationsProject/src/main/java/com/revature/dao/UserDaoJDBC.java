@@ -1,5 +1,6 @@
 package com.revature.dao;
 
+import com.revature.Main;
 import com.revature.models.User;
 import com.revature.util.ConnectionUtil;
 

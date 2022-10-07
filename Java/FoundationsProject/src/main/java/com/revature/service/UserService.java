@@ -5,6 +5,7 @@ import com.revature.dao.UserDAO;
 import com.revature.dao.UserDaoJDBC;
 import com.revature.models.User;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -51,11 +52,11 @@ public class UserService {
         System.out.println("Please enter your password");
         String pw = scan.nextLine();
 
-
         //------------------Add some implementation to check if username/email already exists?
         User newUser = new User(fName, lName, email, username, pw);
         //add user to the database and return new user.
         return ud.addUser(newUser);
+
     }
 
     public void portal(User loggedInUser) {
@@ -79,6 +80,8 @@ public class UserService {
                 rs.addReimbursement(loggedInUser.getUsername(), loggedInUser.getId());
                 System.out.println("+----------------------------------------------------+");
                 portal(loggedInUser);
+            } else if (userChoice == 3) {
+                System.out.println("Now logging out.");
             } else {
                 System.out.println("Option not eligible.");
             }

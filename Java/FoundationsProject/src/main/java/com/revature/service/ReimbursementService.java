@@ -3,6 +3,7 @@ package com.revature.service;
 import com.revature.dao.ReimbursementDAO;
 import com.revature.dao.ReimbursementDaoJDBC;
 import com.revature.models.Reimbursement;
+import com.revature.models.User;
 
 import java.util.List;
 import java.util.Scanner;
@@ -44,6 +45,7 @@ public class ReimbursementService {
         System.out.println("Would you like to Approve or Deny?");
         System.out.println("1) Approve");
         System.out.println("2) Deny");
+        System.out.println("3) Return to main menu");
         int choice = scan.nextInt();
         scan.nextLine();
         //If statement to choose which way to update status field
@@ -53,6 +55,8 @@ public class ReimbursementService {
         } else if (choice == 2) {
             System.out.println("Ticket has been denied");
             rd.updateStatus("Denied", ticketId);
+        } else if (choice == 3) {
+            System.out.println("Returning to main menu.");
         } else {
             System.out.println("Choice not valid.");
 

@@ -72,6 +72,7 @@ public class UserDaoJDBC implements UserDAO {
             }
         } catch (SQLException e) {
             System.out.println("Unable to add user. Username or email is already in use.");
+            System.exit(0);
         }
         return u;
     }

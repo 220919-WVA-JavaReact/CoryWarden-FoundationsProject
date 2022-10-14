@@ -151,7 +151,7 @@ public class ReimbursementDaoJDBC implements ReimbursementDAO {
                 float amount = rs.getFloat("amount");
                 String desc = rs.getString("description");
 
-                    r = new Reimbursement(id, status, authId, username, amount, desc);
+                r = new Reimbursement(id, status, authId, username, amount, desc);
                     System.out.println("Ticket " + id + " has been opened.");
             }
         } catch (SQLException e) {

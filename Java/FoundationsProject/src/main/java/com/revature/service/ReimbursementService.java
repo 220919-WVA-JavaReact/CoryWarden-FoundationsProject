@@ -26,17 +26,36 @@ public class ReimbursementService {
         }
     }
 
-    public static void getTicketsByStatus(String status) {
-        System.out.println("Using the database to return all tickets with " + status);
-        List<Reimbursement> ticketList = rd.getTicketsByStatus(status);
+    public List<Reimbursement>getTicketsByStatus(String status) {
+//        System.out.println("Using the database to return all tickets with " + status);
+//        List<Reimbursement> ticketList = rd.getTicketsByStatus(status);
+//
+//        //cycle through with enhanced for loop to print all database rows
+//        for (Reimbursement ticket : ticketList) {
+//            //Create formatted ticket, so it's not in raw format.
+//            String formattedAmount = String.format("%.02f", ticket.getAmount());
+//            System.out.println("Ticket ID: " + ticket.getId() + " || Status: " + ticket.getStatus() + " || Username: " + ticket.getUsername() +
+//                    " || AuthorId: " + ticket.getAuthId() + " || Amount: $" + formattedAmount + " || Description: " + ticket.getDescription());
+//        }
+        return rd.getTicketsByStatus(status);
+    }
 
-        //cycle through with enhanced for loop to print all database rows
-        for (Reimbursement ticket : ticketList) {
-            //Create formatted ticket, so it's not in raw format.
-            String formattedAmount = String.format("%.02f", ticket.getAmount());
-            System.out.println("Ticket ID: " + ticket.getId() + " || Status: " + ticket.getStatus() + " || Username: " + ticket.getUsername() +
-                    " || AuthorId: " + ticket.getAuthId() + " || Amount: $" + formattedAmount + " || Description: " + ticket.getDescription());
-        }
+    public List<Reimbursement>getByReimbursementAuth(int authId) throws IOException, ClassNotFoundException {
+        return rd.getByReimbursementAuth(authId);
+    }
+
+    public List<Reimbursement>getAllTickets() {
+//        System.out.println("Using the database to return all tickets");
+//        List<Reimbursement> ticketList = rd.getAllTickets();
+//
+//        //cycle through with enhanced for loop to print all database rows
+//        for (Reimbursement ticket : ticketList) {
+//            //Create formatted ticket, so it's not in raw format.
+//            String formattedAmount = String.format("%.02f", ticket.getAmount());
+//            System.out.println("Ticket ID: " + ticket.getId() + " || Status: " + ticket.getStatus() + " || Username: " + ticket.getUsername() +
+//                    " || AuthorId: " + ticket.getAuthId() + " || Amount: $" + formattedAmount + " || Description: " + ticket.getDescription());
+//        }
+        return rd.getAllTickets();
     }
 
     public void statusChange() {
@@ -64,22 +83,21 @@ public class ReimbursementService {
         }
     }
 
-    public void addReimbursement (String username, int authId) {
-        //Prompt register questions;
-        System.out.println("New Reimbursement------------");
-        System.out.println("Please enter the reimbursement amount");
-        float amount = scan.nextFloat();
-        scan.nextLine();
-        System.out.println("Please enter a description for this amount");
-        String description = scan.nextLine();
-
-        if (description.trim().equals("")) {
-            System.out.println("Unable to submit ticket. No description given.");
-        } else {
-            Reimbursement newTicket = new Reimbursement(authId, username, amount, description);
-            //add reimbursement to database and return reimbursement.
-            rd.addReimbursement(newTicket);
-        }
+    public Reimbursement addReimbursement (Reimbursement r) {
+//        //Prompt register questions;
+//        System.out.println("New Reimbursement------------");
+//        System.out.println("Please enter the reimbursement amount");
+//        float amount = scan.nextFloat();
+//        scan.nextLine();
+//        System.out.println("Please enter a description for this amount");
+//        String description = scan.nextLine();
+//
+//        if (description.trim().equals("")) {
+//            System.out.println("Unable to submit ticket. No description given.");
+//        }
+//        Reimbursement newTicket = new Reimbursement(loggedInUser.getId(), loggedInUser.getUsername(), amount, description);
+//        //add reimbursement to database and return reimbursement.
+        return rd.addReimbursement(r);
     }
 
 }

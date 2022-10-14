@@ -41,75 +41,76 @@ public class UserService {
 
             //Intake Author ID to get list of reimbursement tickets, or to store for new reimbursement ticket.
             int authId = loggedInUser.getId();
-            if (userChoice == 1) {
-                rs.viewPersonalTickets(authId);
-                System.out.println("+----------------------------------------------------+");
-                portal(loggedInUser);
-            } else if (userChoice == 2) {
-                rs.addReimbursement(loggedInUser.getUsername(), loggedInUser.getId());
-                System.out.println("+----------------------------------------------------+");
-                portal(loggedInUser);
-            } else if (userChoice == 3) {
-                ud.getByUsername(loggedInUser.getUsername());
-                System.out.println("ID:  " + loggedInUser.getId() + " || First Name:  " + loggedInUser.getfName() +
-                        " || Last Name:  " + loggedInUser.getlName() + " || Email:  " + loggedInUser.getEmail() +
-                        " || Username:  " + loggedInUser.getUsername() + " || Role:  " + loggedInUser.getRole());
-                System.out.println("+----------------------------------------------------+");
-                portal(loggedInUser);
-            } else if (userChoice == 4) {
-                System.out.println("Now logging out.");
-            } else {
-                System.out.println("Option not eligible.");
-            }
-        } else if (userRole.equals("manager")) {
-            System.out.println("Welcome, " + loggedInUser.getfName() +"!");
-            System.out.println("What would you like to do?");
-            System.out.println("1) View all pending tickets");
-            System.out.println("2) View all approved tickets");
-            System.out.println("3) View all denied tickets");
-            System.out.println("4) Change role of employee");
-            System.out.println("5) View my information");
-            System.out.println("6) Logout");
-            int userChoice = scan.nextInt();
-            scan.nextLine();
+//            if (userChoice == 1) {
+//                rs.viewPersonalTickets(authId);
+//                System.out.println("+----------------------------------------------------+");
+//                portal(loggedInUser);
+//            } else if (userChoice == 2) {
+//                rs.addReimbursement(loggedInUser.getUsername(), loggedInUser.getId());
+//                System.out.println("+----------------------------------------------------+");
+//                portal(loggedInUser);
+//            } else if (userChoice == 3) {
+//                ud.getByUsername(loggedInUser.getUsername());
+//                System.out.println("ID:  " + loggedInUser.getId() + " || First Name:  " + loggedInUser.getfName() +
+//                        " || Last Name:  " + loggedInUser.getlName() + " || Email:  " + loggedInUser.getEmail() +
+//                        " || Username:  " + loggedInUser.getUsername() + " || Role:  " + loggedInUser.getRole());
+//                System.out.println("+----------------------------------------------------+");
+//                portal(loggedInUser);
+//            } else if (userChoice == 4) {
+//                System.out.println("Now logging out.");
+//            } else {
+//                System.out.println("Option not eligible.");
+//            }
+        } //else if (userRole.equals("manager")) {
+//            System.out.println("Welcome, " + loggedInUser.getfName() + "!");
+//            System.out.println("What would you like to do?");
+//            System.out.println("1) View all pending tickets");
+//            System.out.println("2) View all approved tickets");
+//            System.out.println("3) View all denied tickets");
+//            System.out.println("4) Change role of employee");
+//            System.out.println("5) View my information");
+//            System.out.println("6) Logout");
+//            int userChoice = scan.nextInt();
+//            scan.nextLine();
+
 
             //Get tickets by status choice entered when choosing above
-            if (userChoice == 1) {
-                String status = "Pending";
-                ReimbursementService.getTicketsByStatus(status);
-                rs.statusChange();
-                System.out.println("+----------------------------------------------------+");
-                portal(loggedInUser);
-            } else if (userChoice == 2) {
-                String status = "Approved";
-                ReimbursementService.getTicketsByStatus(status);
-                System.out.println("+----------------------------------------------------+");
-                portal(loggedInUser);
-            } else if (userChoice == 3) {
-                String status = "Denied";
-                ReimbursementService.getTicketsByStatus(status);
-                System.out.println("+----------------------------------------------------+");
-                portal(loggedInUser);
-            } else if (userChoice == 4) {
-                promoteUser(loggedInUser);
-                System.out.println("+----------------------------------------------------+");
-                portal(loggedInUser);
-            } else if (userChoice == 5) {
-                ud.getByUsername(loggedInUser.getUsername());
-                System.out.println("ID:  " + loggedInUser.getId() + " || First Name:  " + loggedInUser.getfName() +
-                        " || Last Name:  " + loggedInUser.getlName() + " || Email:  " + loggedInUser.getEmail() +
-                        " || Username:  " + loggedInUser.getUsername() + " || Role:  " + loggedInUser.getRole());
-                System.out.println("+----------------------------------------------------+");
-                portal(loggedInUser);
-            } else if (userChoice == 6) {
-                System.out.println("Now logging out.");
-            } else {
-                System.out.println("Option not eligible.");
-            }
-        } else {
-            System.out.println("You do not have an established role. Please get with your manager.");
-        }
-        //return loggedInUser;
+//            if (userChoice == 1) {
+//                String status = "Pending";
+//                ReimbursementService.getTicketsByStatus(status);
+//                rs.statusChange();
+//                System.out.println("+----------------------------------------------------+");
+//                portal(loggedInUser);
+//            } else if (userChoice == 2) {
+//                String status = "Approved";
+//                ReimbursementService.getTicketsByStatus(status);
+//                System.out.println("+----------------------------------------------------+");
+//                portal(loggedInUser);
+//            } else if (userChoice == 3) {
+//                String status = "Denied";
+//                ReimbursementService.getTicketsByStatus(status);
+//                System.out.println("+----------------------------------------------------+");
+//                portal(loggedInUser);
+//            } else if (userChoice == 4) {
+//                promoteUser(loggedInUser);
+//                System.out.println("+----------------------------------------------------+");
+//                portal(loggedInUser);
+//            } else if (userChoice == 5) {
+//                ud.getByUsername(loggedInUser.getUsername());
+//                System.out.println("ID:  " + loggedInUser.getId() + " || First Name:  " + loggedInUser.getfName() +
+//                        " || Last Name:  " + loggedInUser.getlName() + " || Email:  " + loggedInUser.getEmail() +
+//                        " || Username:  " + loggedInUser.getUsername() + " || Role:  " + loggedInUser.getRole());
+//                System.out.println("+----------------------------------------------------+");
+//                portal(loggedInUser);
+//            } else if (userChoice == 6) {
+//                System.out.println("Now logging out.");
+//            } else {
+//                System.out.println("Option not eligible.");
+//            }
+//        } else {
+//            System.out.println("You do not have an established role. Please get with your manager.");
+//        }
+//        return loggedInUser;
     }
 
     //run new method to view all users

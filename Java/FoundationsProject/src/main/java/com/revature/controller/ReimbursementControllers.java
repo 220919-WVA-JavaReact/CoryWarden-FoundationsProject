@@ -27,6 +27,31 @@ public class ReimbursementControllers {
             userTickets(req, resp);
         }
     }
+    public void functionPost(HttpServletRequest req, HttpServletResponse resp) {
+
+        String urlPath = req.getRequestURI().substring(req.getContextPath().length()); //grab url path
+
+        if (urlPath.equals("/r/newticket")) {
+            //Load userTicket below using method from ReimbursDaoJDBC
+            newTicket(req, resp);
+        }
+    }
+
+    private void newTicket(HttpServletRequest req, HttpServletResponse resp) {
+    }
+
+    public void functionPut(HttpServletRequest req, HttpServletResponse resp) {
+
+        String urlPath = req.getRequestURI().substring(req.getContextPath().length()); //grab url path
+
+        if (urlPath.equals("/r/alltickets")) {
+            //Load userTicket below using method from ReimbursDaoJDBC
+            allTickets(req, resp);
+        }
+    }
+
+    private void allTickets(HttpServletRequest req, HttpServletResponse resp) {
+    }
 
     public void userTickets(HttpServletRequest req, HttpServletResponse resp) {
         System.out.println("[LOG2] - Sanity Servlet received a VIEWTICKETS GET req at " + LocalDateTime.now());

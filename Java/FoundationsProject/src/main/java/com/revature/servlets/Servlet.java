@@ -51,6 +51,10 @@ public class Servlet extends HttpServlet {
             uc.functionPost(req, resp);
             //check that process is hitting to this point
             //resp.getWriter().write("You are reaching /foundations-project/users POST correctly.");
+        } else if (urlPath.startsWith(("/r/"))) {
+            rc.functionPost(req , resp);
+            //check that process is hitting to this point
+            resp.getWriter().write("You are reaching /foundations-project/reimbursements POST correctly.");
         }
 
     }
@@ -64,6 +68,10 @@ public class Servlet extends HttpServlet {
             uc.functionPut(req, resp);
             //check that process is hitting to this point
             //resp.getWriter().write("You are reaching /foundations-project/users POST correctly.");
+        } else if (urlPath.startsWith(("/r/"))) {
+            rc.functionPut(req , resp);
+            //check that process is hitting to this point
+            resp.getWriter().write("You are reaching /foundations-project/reimbursements POST correctly.");
         }
     }
 }

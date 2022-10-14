@@ -39,8 +39,6 @@ public class UserControllers {
         }
     }
 
-
-
     public void functionPost(HttpServletRequest req, HttpServletResponse resp) {
 
         String urlPath = req.getRequestURI().substring(req.getContextPath().length()); //grab url path
@@ -57,7 +55,7 @@ public class UserControllers {
 
     public void login(HttpServletRequest req, HttpServletResponse resp) {
         //check that process is hitting to this point
-        System.out.println("[LOG2] - Sanity Servlet received a LOGIN POST req at " + LocalDateTime.now());
+        //System.out.println("[LOG2] - Sanity Servlet received a LOGIN POST req at " + LocalDateTime.now());
         try {
             //accept params from Postman and read
             User u = mapper.readValue(req.getInputStream(), User.class);
@@ -85,7 +83,7 @@ public class UserControllers {
 
     public void logout(HttpServletRequest req, HttpServletResponse resp) {
         //check that process is hitting to this point
-        System.out.println("[LOG2] - Sanity Servlet received a LOGOUT GET req at " + LocalDateTime.now());
+        //System.out.println("[LOG2] - Sanity Servlet received a LOGOUT GET req at " + LocalDateTime.now());
         //bind session to current session
         HttpSession session = req.getSession(false);
 
@@ -99,7 +97,7 @@ public class UserControllers {
     }
 
     public void register(HttpServletRequest req, HttpServletResponse resp) {
-        System.out.println("[LOG2] - Sanity Servlet received a REGISTER POST req at " + LocalDateTime.now());
+        //System.out.println("[LOG2] - Sanity Servlet received a REGISTER POST req at " + LocalDateTime.now());
 
         try {
             //create user using input from Postman

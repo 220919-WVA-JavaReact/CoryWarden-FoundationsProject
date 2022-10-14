@@ -101,6 +101,35 @@ public class ReimbursementDaoJDBC implements ReimbursementDAO {
     }
 
     @Override
+    public List<Reimbursement> getAllTickets() {
+        List<Reimbursement> tickets = new ArrayList<>();
+        try (Connection conn = ConnectionUtil.getConn()) {
+            String sql = "SELECT * FROM reimbursement ORDER BY status";
+            assert conn != null;
+            PreparedStatement pstmt = conn.prepareStatement(sql);;
+            ResultSet rs = pstmt.executeQuery();
+
+            //to store all, use while loop
+            while (rs.next()) {
+                int id = rs.getInt("ticket");
+                String status = rs.getString("status");
+                int authId = rs.getInt("authid");
+                String username = rs.getString("username");
+                float amount = rs.getFloat("amount");
+                String desc = rs.getString("description");
+
+                Reimbursement r = new Reimbursement(id, status, authId, username, amount, desc);
+                tickets.add(r);
+
+            }
+        } catch (SQLException e) {
+            System.out.println("Unable to fetch ticket.");
+        }
+        return tickets;
+
+    }
+
+    @Override
     public Reimbursement addReimbursement(Reimbursement r) {
         try (Connection conn = ConnectionUtil.getConn()) {
             String sql = "INSERT INTO reimbursement (authId,username,amount,description) VALUES (?,?,?,?) RETURNING *";

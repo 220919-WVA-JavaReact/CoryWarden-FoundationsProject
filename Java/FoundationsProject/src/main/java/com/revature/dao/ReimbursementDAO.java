@@ -15,6 +15,8 @@ public interface ReimbursementDAO {
     //get by reimbursement ticket id
     List<Reimbursement> getTicketsByStatus (String status);
 
+    List<Reimbursement> getAllTickets ();
+
     //add new reimbursement to database
     Reimbursement addReimbursement (Reimbursement r);
 

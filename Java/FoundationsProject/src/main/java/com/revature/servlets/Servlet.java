@@ -54,4 +54,16 @@ public class Servlet extends HttpServlet {
         }
 
     }
+
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        //get direct path of request
+        String urlPath = req.getRequestURI().substring(req.getContextPath().length());
+
+        if (urlPath.startsWith("/u/")) {
+            uc.functionPut(req, resp);
+            //check that process is hitting to this point
+            //resp.getWriter().write("You are reaching /foundations-project/users POST correctly.");
+        }
+    }
 }

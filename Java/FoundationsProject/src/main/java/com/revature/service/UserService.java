@@ -18,51 +18,13 @@ public class UserService {
     Main menu;
 
     public User login(User loggedInUser) throws SQLException {
-        //Main Menu
-//        System.out.println("Login------------");
-//        System.out.println("Please enter your username");
-//        String username = scan.nextLine();
-//        System.out.println("Please enter your password");
-//        String password = scan.nextLine();
-        //Get the account associated with username and verify the password to log the user in.
-        /*
-        1) Call Database and find info based off submitted username
-        2) Check returned pw of username in database against the input to verify they are equal
-         */
-//        loggedInUser = ud.getByUsername(username.toLowerCase());
-//        if (loggedInUser.getPw().equals(password)) {
-//            System.out.println("+-------------------------------------+");
-//            System.out.println(loggedInUser);
-//            return loggedInUser;
-//        } else {
-//            System.out.println("You do not have an account in our database.");
-//            return null;
-//        }
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        //////////////////////////CUT OUT ALL CLI INTERACTION ABOVE, ONLY API FUNCTIONALITY////////////////////////////
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //validate user authorization with username and pw
         return ud.getAuth(loggedInUser.getUsername(), loggedInUser.getPw());
     }
 
     public User register (User newUser) {
-        //Prompt register questions;
-//        System.out.println("Register------------");
-//        System.out.println("Please enter your first name");
-//        String fName = scan.nextLine();
-//        System.out.println("Please enter your last name");
-//        String lName = scan.nextLine();
-//        System.out.println("Please enter your email");
-//        String email = scan.nextLine();
-//        System.out.println("Please enter your username");
-//        String username = scan.nextLine();
-//        System.out.println("Please enter your password");
-//        String pw = scan.nextLine();
-//
-//        //------------------Add some implementation to check if username/email already exists?
-//        User newUser = new User(fName, lName, email, username, pw);
         //add user to the database and return new user.
         return ud.addUser(newUser);
-
     }
 
     public void portal(User loggedInUser) throws IOException, ClassNotFoundException {

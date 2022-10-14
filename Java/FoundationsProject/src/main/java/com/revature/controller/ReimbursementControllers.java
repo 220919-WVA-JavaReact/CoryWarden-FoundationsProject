@@ -32,14 +32,17 @@ public class ReimbursementControllers {
         System.out.println("[LOG2] - Sanity Servlet received a VIEWTICKETS GET req at " + LocalDateTime.now());
 
         //ensure session is grabbed and is not null
-        HttpSession session = req.getSession();
-        System.out.println(session.getId());
-        if (session.getId() != null) {
+        HttpSession session = req.getSession(false);
+        //System.out.println(session.getId());
+
+        if (session != null) {
             try {
                     //create list of tickets from method in ReimbursDaoJDBC and parsing as an integer to use argument
-                    List<Reimbursement> userTickets = rd.getByReimbursementAuth(Integer.parseInt(session.getAttribute("user").toString()));
+                    User u = (User) session.getAttribute("user");
+                    List<Reimbursement> userTickets = rd.getByReimbursementAuth(u.getId());
                     //write object as string and return
                     String jsonTickets = mapper.writeValueAsString(userTickets);
+                    resp.setStatus(200);
                     resp.setContentType("application/json");
                     resp.getWriter().write(jsonTickets);
             } catch (IOException | ClassNotFoundException e) {
@@ -47,6 +50,12 @@ public class ReimbursementControllers {
             }
         } else {
             resp.setStatus(401);
+            try {
+                resp.getWriter().write("You are not logged in. Unable to access tickets.");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
+
     }
 }

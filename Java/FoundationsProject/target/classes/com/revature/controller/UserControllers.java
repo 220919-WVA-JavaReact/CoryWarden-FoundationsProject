@@ -22,11 +22,24 @@ public class UserControllers {
         String urlPath = req.getRequestURI().substring(req.getContextPath().length()); //grab url path
         //System.out.println(urlPath);
 
+//        if (urlPath.equals("/u/logout")) {
+//            //loads logout below
+//            logout(req, resp);
+//        }
+    }
+
+    public void functionPut(HttpServletRequest req, HttpServletResponse resp) {
+
+        String urlPath = req.getRequestURI().substring(req.getContextPath().length()); //grab url path
+        //System.out.println(urlPath);
+
         if (urlPath.equals("/u/logout")) {
             //loads logout below
             logout(req, resp);
         }
     }
+
+
 
     public void functionPost(HttpServletRequest req, HttpServletResponse resp) {
 
@@ -55,14 +68,14 @@ public class UserControllers {
 
             if (actualUser != null) {
                 //bind the object to session
-                req.getSession().setAttribute("user", actualUser.getId());
+                req.getSession().setAttribute("user", actualUser);
+                resp.setStatus(200);
                 resp.setHeader("user", actualUser.getUsername());
                 resp.getWriter().write(jsonUser);
             } else {
                 //return error code advising unable to add.
                 resp.setStatus(400);
-                resp.getWriter().write("No user found.");
-                System.out.println("No user found.");
+                resp.getWriter().write("Invalid credentials. Please try again.");
             }
 
         } catch (IOException | SQLException e) {
@@ -74,7 +87,7 @@ public class UserControllers {
         //check that process is hitting to this point
         System.out.println("[LOG2] - Sanity Servlet received a LOGOUT GET req at " + LocalDateTime.now());
         //bind session to current session
-        HttpSession session = req.getSession();
+        HttpSession session = req.getSession(false);
 
         //check if session is not null, then invalidate from list
         if (session != null) {
@@ -99,13 +112,13 @@ public class UserControllers {
             if (actualUser != null) {
                 //bind the object to session
                 req.getSession().setAttribute("user", actualUser.getId());
+                resp.setStatus(200);
                 resp.setContentType("application/json");
                 resp.getWriter().write(jsonUser);
             } else {
                 //return error code advising unable to add.
                 resp.setStatus(400);
-                resp.getWriter().write("Unable to add user.");
-                System.out.println("Unable to add user.");
+                resp.getWriter().write("Unable to add user. Already exists in database.");
             }
         } catch (IOException e) {
             e.printStackTrace();

@@ -153,15 +153,17 @@ public class ReimbursementControllers {
                 //create user using input from Postman
                 Reimbursement r = mapper.readValue(req.getInputStream(), Reimbursement.class);
                 //run through UserDAOJDBC register method
-                Reimbursement newReimbursement = rs.addReimbursement(r);
-                //write object as string
-                String jsonTicket = mapper.writeValueAsString(newReimbursement);
-
                 if (u.getUsername().equals(r.getUsername())) {
-                    //bind the object to session
-                    resp.setStatus(200);
-                    resp.setContentType("application/json");
-                    resp.getWriter().write(jsonTicket);
+                    if (!r.getDescription().trim().equals("") && r.getDescription() != null) {
+                        Reimbursement newReimbursement = rs.addReimbursement(r);
+                        //write object as string
+                        String jsonTicket = mapper.writeValueAsString(newReimbursement);
+
+
+                        resp.setStatus(200);
+                        resp.setContentType("application/json");
+                        resp.getWriter().write(jsonTicket);
+                    }
                 } else {
                     //return error code advising unable to add.
                     resp.setStatus(400);

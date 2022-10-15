@@ -153,8 +153,9 @@ public class ReimbursementControllers {
                 //create user using input from Postman
                 Reimbursement r = mapper.readValue(req.getInputStream(), Reimbursement.class);
                 //run through UserDAOJDBC register method
+                //TODO add validation for amount. Unsure how to check if float
                 if (u.getUsername().equals(r.getUsername())) {
-                    if (!r.getDescription().trim().equals("") && r.getDescription() != null) {
+                    if (!r.getDescription().trim().equals("") && r.getDescription() != null && r.getAmount() != 0.0f) {
                         Reimbursement newReimbursement = rs.addReimbursement(r);
                         //write object as string
                         String jsonTicket = mapper.writeValueAsString(newReimbursement);
@@ -163,6 +164,9 @@ public class ReimbursementControllers {
                         resp.setStatus(200);
                         resp.setContentType("application/json");
                         resp.getWriter().write(jsonTicket);
+                    } else {
+                        resp.setStatus(400);
+                        resp.getWriter().write("Unable to add ticket. Please check your description and amount.");
                     }
                 } else {
                     //return error code advising unable to add.

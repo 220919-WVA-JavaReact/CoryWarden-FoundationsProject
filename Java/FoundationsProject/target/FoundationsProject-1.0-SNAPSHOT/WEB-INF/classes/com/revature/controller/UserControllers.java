@@ -68,7 +68,8 @@ public class UserControllers {
                 //bind the object to session
                 req.getSession().setAttribute("user", actualUser);
                 resp.setStatus(200);
-                resp.setHeader("user", actualUser.getUsername());
+                resp.setHeader("username", actualUser.getUsername());
+                resp.setHeader("userid", String.valueOf(actualUser.getId()));
                 resp.getWriter().write(jsonUser);
             } else {
                 //return error code advising unable to add.
@@ -89,11 +90,24 @@ public class UserControllers {
 
         //check if session is not null, then invalidate from list
         if (session != null) {
+            //give response code and feedback.
             session.invalidate();
+            resp.setStatus(200);
+            try {
+                resp.getWriter().write("You are now logged out.");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        } else {
+            resp.setStatus(403);
+            try {
+                resp.getWriter().write("You are not logged in.");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
         //give response code and sysout.
-        resp.setStatus(204);
-        System.out.println("You are now logged out.");
+
     }
 
     public void register(HttpServletRequest req, HttpServletResponse resp) {

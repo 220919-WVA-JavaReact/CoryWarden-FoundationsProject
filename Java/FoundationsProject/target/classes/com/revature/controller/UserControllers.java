@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
 
 public class UserControllers {
 
@@ -54,8 +53,6 @@ public class UserControllers {
     }
 
     public void login(HttpServletRequest req, HttpServletResponse resp) {
-        //check that process is hitting to this point
-        //System.out.println("[LOG2] - Sanity Servlet received a LOGIN POST req at " + LocalDateTime.now());
         try {
             //accept params from Postman and read
             User u = mapper.readValue(req.getInputStream(), User.class);
@@ -83,9 +80,7 @@ public class UserControllers {
     }
 
     public void logout(HttpServletRequest req, HttpServletResponse resp) {
-        //check that process is hitting to this point
-        //System.out.println("[LOG2] - Sanity Servlet received a LOGOUT GET req at " + LocalDateTime.now());
-        //bind session to current session
+        //ensure session is grabbed and is not null
         HttpSession session = req.getSession(false);
 
         //check if session is not null, then invalidate from list
@@ -111,8 +106,6 @@ public class UserControllers {
     }
 
     public void register(HttpServletRequest req, HttpServletResponse resp) {
-        //System.out.println("[LOG2] - Sanity Servlet received a REGISTER POST req at " + LocalDateTime.now());
-
         try {
             //create user using input from Postman
             User u = mapper.readValue(req.getInputStream(), User.class);
@@ -123,8 +116,10 @@ public class UserControllers {
 
             if (actualUser != null) {
                 //bind the object to session
-                req.getSession().setAttribute("user", actualUser.getId());
+                req.getSession().setAttribute("user", actualUser);
                 resp.setStatus(200);
+                resp.setHeader("username", actualUser.getUsername());
+                resp.setHeader("userid", String.valueOf(actualUser.getId()));
                 resp.setContentType("application/json");
                 resp.getWriter().write(jsonUser);
             } else {

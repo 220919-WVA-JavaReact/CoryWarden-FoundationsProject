@@ -3,7 +3,6 @@ package com.revature.service;
 import com.revature.dao.ReimbursementDAO;
 import com.revature.dao.ReimbursementDaoJDBC;
 import com.revature.models.Reimbursement;
-import com.revature.models.User;
 
 import java.io.IOException;
 import java.util.List;
@@ -27,16 +26,6 @@ public class ReimbursementService {
     }
 
     public List<Reimbursement>getTicketsByStatus(String status) {
-//        System.out.println("Using the database to return all tickets with " + status);
-//        List<Reimbursement> ticketList = rd.getTicketsByStatus(status);
-//
-//        //cycle through with enhanced for loop to print all database rows
-//        for (Reimbursement ticket : ticketList) {
-//            //Create formatted ticket, so it's not in raw format.
-//            String formattedAmount = String.format("%.02f", ticket.getAmount());
-//            System.out.println("Ticket ID: " + ticket.getId() + " || Status: " + ticket.getStatus() + " || Username: " + ticket.getUsername() +
-//                    " || AuthorId: " + ticket.getAuthId() + " || Amount: $" + formattedAmount + " || Description: " + ticket.getDescription());
-//        }
         return rd.getTicketsByStatus(status);
     }
 
@@ -45,58 +34,36 @@ public class ReimbursementService {
     }
 
     public List<Reimbursement>getAllTickets() {
-//        System.out.println("Using the database to return all tickets");
-//        List<Reimbursement> ticketList = rd.getAllTickets();
-//
-//        //cycle through with enhanced for loop to print all database rows
-//        for (Reimbursement ticket : ticketList) {
-//            //Create formatted ticket, so it's not in raw format.
-//            String formattedAmount = String.format("%.02f", ticket.getAmount());
-//            System.out.println("Ticket ID: " + ticket.getId() + " || Status: " + ticket.getStatus() + " || Username: " + ticket.getUsername() +
-//                    " || AuthorId: " + ticket.getAuthId() + " || Amount: $" + formattedAmount + " || Description: " + ticket.getDescription());
-//        }
         return rd.getAllTickets();
     }
 
-    public void statusChange() {
-        System.out.println("Enter ticket number: ");
-        int ticketId = scan.nextInt();
-        scan.nextLine();
-        System.out.println("Would you like to Approve or Deny?");
-        System.out.println("1) Approve");
-        System.out.println("2) Deny");
-        System.out.println("3) Return to main menu");
-        int choice = scan.nextInt();
-        scan.nextLine();
-        //If statement to choose which way to update status field
-        if (choice == 1) {
-            System.out.println("Ticket has been approved.");
-            rd.updateStatus("Approved", ticketId);
-        } else if (choice == 2) {
-            System.out.println("Ticket has been denied");
-            rd.updateStatus("Denied", ticketId);
-        } else if (choice == 3) {
-            System.out.println("Returning to main menu.");
-        } else {
-            System.out.println("Choice not valid.");
-
-        }
+    public Reimbursement statusChange(String status, int ticketId) {
+//        System.out.println("Enter ticket number: ");
+//        int ticketId = scan.nextInt();
+//        scan.nextLine();
+//        System.out.println("Would you like to Approve or Deny?");
+//        System.out.println("1) Approve");
+//        System.out.println("2) Deny");
+//        System.out.println("3) Return to main menu");
+//        int choice = scan.nextInt();
+//        scan.nextLine();
+//        //If statement to choose which way to update status field
+//        if (choice == 1) {
+//            System.out.println("Ticket has been approved.");
+//            rd.updateStatus("Approved", ticketId);
+//        } else if (choice == 2) {
+//            System.out.println("Ticket has been denied");
+//            rd.updateStatus("Denied", ticketId);
+//        } else if (choice == 3) {
+//            System.out.println("Returning to main menu.");
+//        } else {
+//            System.out.println("Choice not valid.");
+//
+//        }
+        return rd.updateStatus(status, ticketId);
     }
 
     public Reimbursement addReimbursement (Reimbursement r) {
-//        //Prompt register questions;
-//        System.out.println("New Reimbursement------------");
-//        System.out.println("Please enter the reimbursement amount");
-//        float amount = scan.nextFloat();
-//        scan.nextLine();
-//        System.out.println("Please enter a description for this amount");
-//        String description = scan.nextLine();
-//
-//        if (description.trim().equals("")) {
-//            System.out.println("Unable to submit ticket. No description given.");
-//        }
-//        Reimbursement newTicket = new Reimbursement(loggedInUser.getId(), loggedInUser.getUsername(), amount, description);
-//        //add reimbursement to database and return reimbursement.
         return rd.addReimbursement(r);
     }
 

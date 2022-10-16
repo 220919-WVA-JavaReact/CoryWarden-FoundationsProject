@@ -1,8 +1,6 @@
 package com.revature.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.revature.dao.ReimbursementDAO;
-import com.revature.dao.ReimbursementDaoJDBC;
 import com.revature.models.Reimbursement;
 import com.revature.models.User;
 import com.revature.service.ReimbursementService;
@@ -47,14 +45,12 @@ public class ReimbursementControllers {
 
         String urlPath = req.getRequestURI().substring(req.getContextPath().length()); //grab url path
 
-        if (urlPath.equals("/r/pendingtickets/approve")) {
-            //Load userTicket below using method from ReimbursDaoJDBC
-            //allTickets(req, resp);
-        } else if (urlPath.equals("/r/pendingtickets/deny")) {
-            //Load userTicket below using method from ReimbursDaoJDBC
-            //allTickets(req, resp);
+        if (urlPath.equals("/r/updateticket")) {
+            //Load ticketstatus below using method from ReimbursDaoJDBC
+            ticketStatus(req, resp);
         }
     }
+
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////FUNCTIONS//////////////////////////////////////////////////////////////
@@ -142,9 +138,52 @@ public class ReimbursementControllers {
         }
     }
 
+    ///////////////////////////////////MANAGER CHANGE TICKET STATUS////////////////////////////////////////////////////
+    private void ticketStatus(HttpServletRequest req, HttpServletResponse resp) {
+        System.out.println("[LOG2] - Sanity Servlet received a UPDATETICKET PUT req at " + LocalDateTime.now());
+
+        //ensure session is grabbed and is not null
+        HttpSession session = req.getSession(false);
+        //System.out.println(session.getId());
+
+        if (session != null) {
+            User u = (User) session.getAttribute("user");
+            List<Reimbursement> pendtix = rs.getTicketsByStatus("Pending");
+            if (u.getRole().equals("manager") && pendtix.toString().equals("Pending")) {
+                try {
+                    //create list of tickets from method in ReimbursDaoJDBC and parsing as an integer to use argument
+
+                    Reimbursement r = mapper.readValue(req.getInputStream(), Reimbursement.class);
+                    Reimbursement updated = rs.statusChange(r.getStatus(), r.getId());
+                    //write object as string and return
+                    String jsonTickets = mapper.writeValueAsString(r);
+                    resp.setStatus(200);
+                    resp.setContentType("application/json");
+                    resp.getWriter().write(jsonTickets);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                resp.setStatus(403);
+                try {
+                    resp.getWriter().write("Unable to change tickets due to role status or ticket status.");
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        } else {
+            resp.setStatus(401);
+            try {
+                resp.getWriter().write("You are not logged in. Unable to access tickets.");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
     ///////////////////////////////////////EMPLOYEE NEW TICKET/////////////////////////////////////////////////////////
     private void newTicket(HttpServletRequest req, HttpServletResponse resp) {
-        System.out.println("[LOG2] - Sanity Servlet received a NEWTICKET GET req at " + LocalDateTime.now());
+        //System.out.println("[LOG2] - Sanity Servlet received a NEWTICKET GET req at " + LocalDateTime.now());
 
         HttpSession session = req.getSession(false);
         if (session != null) {
@@ -159,12 +198,12 @@ public class ReimbursementControllers {
                         Reimbursement newReimbursement = rs.addReimbursement(r);
                         //write object as string
                         String jsonTicket = mapper.writeValueAsString(newReimbursement);
-
-
+                        //feed responses back through postman
                         resp.setStatus(200);
                         resp.setContentType("application/json");
                         resp.getWriter().write(jsonTicket);
                     } else {
+                        //return error stating that description or amount is incorrect
                         resp.setStatus(400);
                         resp.getWriter().write("Unable to add ticket. Please check your description and amount.");
                     }
@@ -188,8 +227,6 @@ public class ReimbursementControllers {
 
     ///////////////////////////////////////EMPLOYEE USER TICKETS///////////////////////////////////////////////////////
     public void userTickets(HttpServletRequest req, HttpServletResponse resp) {
-        //System.out.println("[LOG2] - Sanity Servlet received a VIEWTICKETS GET req at " + LocalDateTime.now());
-
         //ensure session is grabbed and is not null
         HttpSession session = req.getSession(false);
         //System.out.println(session.getId());
@@ -201,6 +238,7 @@ public class ReimbursementControllers {
                     List<Reimbursement> userTickets = rs.getByReimbursementAuth(u.getId());
                     //write object as string and return
                     String jsonTickets = mapper.writeValueAsString(userTickets);
+                //feed responses back through postman
                     resp.setStatus(200);
                     resp.setContentType("application/json");
                     resp.getWriter().write(jsonTickets);

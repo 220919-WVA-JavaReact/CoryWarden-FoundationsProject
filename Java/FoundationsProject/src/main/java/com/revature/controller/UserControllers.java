@@ -35,7 +35,7 @@ public class UserControllers {
 
         if (urlPath.equals("/u/updaterole")) {
             //loads updaterole below using UserDAOJDBC
-            updaterole(req,resp);
+            updateRole(req,resp);
         }
     }
 
@@ -141,7 +141,7 @@ public class UserControllers {
     }
 
     ///////////////////////////////////////MANAGER ROLE UPDATE/////////////////////////////////////////////////////////
-    private void updaterole(HttpServletRequest req, HttpServletResponse resp) {
+    private void updateRole(HttpServletRequest req, HttpServletResponse resp) {
         System.out.println("[LOG2] - Sanity Servlet received a UPDATETICKET PUT req at " + LocalDateTime.now());
 
         //ensure session is grabbed and is not null

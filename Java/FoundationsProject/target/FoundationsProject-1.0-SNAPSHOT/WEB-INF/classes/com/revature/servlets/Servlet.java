@@ -4,13 +4,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.controller.ReimbursementControllers;
 import com.revature.controller.UserControllers;
 import com.revature.service.UserService;
-
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.time.LocalDateTime;
 
 public class Servlet extends HttpServlet {
 
@@ -19,16 +15,15 @@ public class Servlet extends HttpServlet {
     public ReimbursementControllers rc = new ReimbursementControllers();
 
     @Override
-    public void init() throws ServletException {
+    public void init() {
         System.out.println("[LOG] - Servlet Instantiated--------------------");
     }
 
     ObjectMapper mapper  = new ObjectMapper();
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
         //get direct path of request
         String urlPath = req.getRequestURI().substring(req.getContextPath().length());
-        //resp.getWriter().write("You are reaching /foundations-project correctly. ");
 
         if (urlPath.startsWith("/u/")) {
             uc.functionGet(req, resp);
@@ -43,7 +38,7 @@ public class Servlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
         //get direct path of request
         String urlPath = req.getRequestURI().substring(req.getContextPath().length());
 
@@ -60,7 +55,7 @@ public class Servlet extends HttpServlet {
     }
 
     @Override
-    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) {
         //get direct path of request
         String urlPath = req.getRequestURI().substring(req.getContextPath().length());
 

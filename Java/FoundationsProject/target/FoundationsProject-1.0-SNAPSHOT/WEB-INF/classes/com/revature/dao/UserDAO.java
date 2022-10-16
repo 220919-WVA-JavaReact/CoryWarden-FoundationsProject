@@ -19,6 +19,6 @@ public interface UserDAO {
 
     List<User> getAllUsers();
 
-    User updateRole(User u, int newRole);
+    User updateRole(User u, String status);
 
 }

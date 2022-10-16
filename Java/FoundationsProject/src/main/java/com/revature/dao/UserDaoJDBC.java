@@ -147,7 +147,7 @@ public class UserDaoJDBC implements UserDAO {
     }
 
     @Override
-    public User updateRole(User u, int newRole) {
+    public User updateRole(User u, String status) {
         try (Connection conn = ConnectionUtil.getConn()) {
             String sql = "UPDATE users SET role = ? WHERE username = ? RETURNING *";
             assert conn != null;
@@ -155,7 +155,7 @@ public class UserDaoJDBC implements UserDAO {
             //pstmt.setString(1, "manager");
             pstmt.setString(2, u.getUsername());
 
-            if (newRole == 1) {
+            if (status.toLowerCase().equals("manager")) {
                 //if user inputs 1, make chosen user a manager
                 pstmt.setString(1, "manager");
             } else {

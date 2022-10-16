@@ -56,7 +56,7 @@ public class ReimbursementControllers {
     ////////////////////////////////////////////FUNCTIONS//////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    ///////////////////////////////////////MANAGER ALL TICKETS///////////////////////////////////////////////////////
+    ///////////////////////////////////////MANAGER ALL TICKETS/////////////////////////////////////////////////////////
     private void allTickets(HttpServletRequest req, HttpServletResponse resp) {
         System.out.println("[LOG2] - Sanity Servlet received a VIEWALL GET req at " + LocalDateTime.now());
 
@@ -69,7 +69,6 @@ public class ReimbursementControllers {
             if (u.getRole().equals("manager")) {
                 try {
                     //create list of tickets from method in ReimbursDaoJDBC and parsing as an integer to use argument
-
                     List<Reimbursement> allTickets = rs.getAllTickets();
                     //write object as string and return
                     String jsonTickets = mapper.writeValueAsString(allTickets);
@@ -110,7 +109,6 @@ public class ReimbursementControllers {
             if (u.getRole().equals("manager")) {
                 try {
                     //create list of tickets from method in ReimbursDaoJDBC and parsing as an integer to use argument
-
                     List<Reimbursement> allTickets = rs.getTicketsByStatus("Pending");
                     //write object as string and return
                     String jsonTickets = mapper.writeValueAsString(allTickets);
@@ -156,7 +154,7 @@ public class ReimbursementControllers {
                     Reimbursement r = mapper.readValue(req.getInputStream(), Reimbursement.class);
                     Reimbursement updated = rs.statusChange(r.getStatus(), r.getId());
                     //write object as string and return
-                    String jsonTickets = mapper.writeValueAsString(r);
+                    String jsonTickets = mapper.writeValueAsString(updated);
                     resp.setStatus(200);
                     resp.setContentType("application/json");
                     resp.getWriter().write(jsonTickets);
@@ -253,6 +251,5 @@ public class ReimbursementControllers {
                 throw new RuntimeException(e);
             }
         }
-
     }
 }

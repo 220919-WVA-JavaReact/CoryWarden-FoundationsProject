@@ -90,8 +90,8 @@ public class UserDaoJDBC implements UserDAO {
             //Answer ? below with parameter and variable/input
             pstmt.setString(1, u.getfName());
             pstmt.setString(2, u.getlName());
-            pstmt.setString(3, u.getEmail());
-            pstmt.setString(4, u.getUsername());
+            pstmt.setString(3, u.getEmail().toLowerCase());
+            pstmt.setString(4, u.getUsername().toLowerCase());
             pstmt.setString(5, u.getPw());
             ResultSet rs = pstmt.executeQuery();
             if (rs != null) {

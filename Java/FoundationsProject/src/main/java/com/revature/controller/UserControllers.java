@@ -142,7 +142,7 @@ public class UserControllers {
 
     ///////////////////////////////////////MANAGER ROLE UPDATE/////////////////////////////////////////////////////////
     private void updateRole(HttpServletRequest req, HttpServletResponse resp) {
-        System.out.println("[LOG2] - Sanity Servlet received a UPDATETICKET PUT req at " + LocalDateTime.now());
+        //System.out.println("[LOG2] - Sanity Servlet received a UPDATETICKET PUT req at " + LocalDateTime.now());
 
         //ensure session is grabbed and is not null
         HttpSession session = req.getSession(false);

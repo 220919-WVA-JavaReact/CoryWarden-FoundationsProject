@@ -26,6 +26,10 @@ public class ReimbursementService {
         return rd.getTicketsByStatus(status);
     }
 
+    public Reimbursement getByTicketId (int id) throws IOException, ClassNotFoundException {
+        return rd.getByTicketId(id);
+    }
+
     public List<Reimbursement>getByReimbursementAuth(int authId) throws IOException, ClassNotFoundException {
         return rd.getByReimbursementAuth(authId);
     }

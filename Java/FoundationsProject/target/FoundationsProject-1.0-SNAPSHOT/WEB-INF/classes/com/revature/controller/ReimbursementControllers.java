@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ReimbursementControllers {
@@ -45,9 +47,12 @@ public class ReimbursementControllers {
 
         String urlPath = req.getRequestURI().substring(req.getContextPath().length()); //grab url path
 
-        if (urlPath.equals("/r/updateticket")) {
+        if (urlPath.equals("/r/approveticket")) {
             //Load ticketstatus below using method from ReimbursDaoJDBC
-            ticketStatus(req, resp);
+            approveTicket(req, resp);
+        } else if (urlPath.equals("/r/denyticket")) {
+            //Load ticketstatus below using method from ReimbursDaoJDBC
+            denyTicket(req, resp);
         }
     }
 
@@ -109,7 +114,7 @@ public class ReimbursementControllers {
             if (u.getRole().equals("manager")) {
                 try {
                     //create list of tickets from method in ReimbursDaoJDBC and parsing as an integer to use argument
-                    List<Reimbursement> allTickets = rs.getTicketsByStatus("Pending");
+                    List<Reimbursement> allTickets = rs.getTicketsByStatus("pending");
                     //write object as string and return
                     String jsonTickets = mapper.writeValueAsString(allTickets);
                     resp.setStatus(200);
@@ -137,7 +142,7 @@ public class ReimbursementControllers {
     }
 
     ///////////////////////////////////MANAGER CHANGE TICKET STATUS////////////////////////////////////////////////////
-    private void ticketStatus(HttpServletRequest req, HttpServletResponse resp) {
+    private void approveTicket(HttpServletRequest req, HttpServletResponse resp) {
         System.out.println("[LOG2] - Sanity Servlet received a UPDATETICKET PUT req at " + LocalDateTime.now());
 
         //ensure session is grabbed and is not null
@@ -146,20 +151,74 @@ public class ReimbursementControllers {
 
         if (session != null) {
             User u = (User) session.getAttribute("user");
-            List<Reimbursement> pendtix = rs.getTicketsByStatus("Pending");
-            if (u.getRole().equals("manager") && pendtix.toString().equals("Pending")) {
+            if (u.getRole().equals("manager")) {
                 try {
                     //create list of tickets from method in ReimbursDaoJDBC and parsing as an integer to use argument
-
                     Reimbursement r = mapper.readValue(req.getInputStream(), Reimbursement.class);
-                    Reimbursement updated = rs.statusChange(r.getStatus(), r.getId());
-                    //write object as string and return
-                    String jsonTickets = mapper.writeValueAsString(updated);
-                    resp.setStatus(200);
-                    resp.setContentType("application/json");
-                    resp.getWriter().write(jsonTickets);
+                    Reimbursement ticket = rs.getByTicketId(r.getId());
+                    if (ticket.getStatus().equals("pending")) {
+                        Reimbursement updated = rs.statusChange("approved", r.getId());
+                        //write object as string and return
+                        String jsonTickets = mapper.writeValueAsString(updated);
+                        resp.setStatus(200);
+                        resp.setContentType("application/json");
+                        resp.getWriter().write(jsonTickets);
+                    } else {
+                        resp.setStatus(400);
+                        resp.getWriter().write("Ticket has already been processed");
+                    }
                 } catch (IOException e) {
                     e.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
+            } else {
+                resp.setStatus(403);
+                try {
+                    resp.getWriter().write("Unable to change tickets due to role status or ticket status.");
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        } else {
+            resp.setStatus(401);
+            try {
+                resp.getWriter().write("You are not logged in. Unable to access tickets.");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    private void denyTicket(HttpServletRequest req, HttpServletResponse resp) {
+        System.out.println("[LOG2] - Sanity Servlet received a UPDATETICKET PUT req at " + LocalDateTime.now());
+
+        //ensure session is grabbed and is not null
+        HttpSession session = req.getSession(false);
+        //System.out.println(session.getId());
+
+        if (session != null) {
+            User u = (User) session.getAttribute("user");
+            if (u.getRole().equals("manager")) {
+                try {
+                    //create list of tickets from method in ReimbursDaoJDBC and parsing as an integer to use argument
+                    Reimbursement r = mapper.readValue(req.getInputStream(), Reimbursement.class);
+                    Reimbursement ticket = rs.getByTicketId(r.getId());
+                    if (ticket.getStatus().equals("pending")) {
+                        Reimbursement updated = rs.statusChange("denied", r.getId());
+                        //write object as string and return
+                        String jsonTickets = mapper.writeValueAsString(updated);
+                        resp.setStatus(200);
+                        resp.setContentType("application/json");
+                        resp.getWriter().write(jsonTickets);
+                    } else {
+                        resp.setStatus(400);
+                        resp.getWriter().write("Ticket has already been processed");
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    throw new RuntimeException(e);
                 }
             } else {
                 resp.setStatus(403);

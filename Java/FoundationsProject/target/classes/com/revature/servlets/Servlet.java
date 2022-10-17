@@ -34,7 +34,6 @@ public class Servlet extends HttpServlet {
             //check that process is hitting to this point
             //resp.getWriter().write("You are reaching /foundations-project/reimbursements GET correctly.");
         }
-
     }
 
     @Override
@@ -51,7 +50,6 @@ public class Servlet extends HttpServlet {
             //check that process is hitting to this point
             //resp.getWriter().write("You are reaching /foundations-project/reimbursements POST correctly.");
         }
-
     }
 
     @Override

@@ -4,8 +4,6 @@ import com.revature.models.Reimbursement;
 
 import com.revature.util.ConnectionUtil;
 
-import java.awt.geom.Arc2D;
-import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -170,7 +168,7 @@ public class ReimbursementDaoJDBC implements ReimbursementDAO {
             String sql = "UPDATE reimbursement SET status = ? WHERE ticket = ? RETURNING *";
             assert conn != null;
             PreparedStatement pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, status);
+            pstmt.setString(1, status.toLowerCase());
             pstmt.setInt(2, ticketId);
             ResultSet rs = pstmt.executeQuery();
             if (rs != null) {

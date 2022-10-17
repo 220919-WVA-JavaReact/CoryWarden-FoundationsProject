@@ -1,7 +1,6 @@
 package com.revature.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.revature.models.Reimbursement;
 import com.revature.models.User;
 import com.revature.service.UserService;
 
@@ -12,7 +11,6 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
-import java.util.List;
 
 public class UserControllers {
 
@@ -37,7 +35,7 @@ public class UserControllers {
 
         if (urlPath.equals("/u/updaterole")) {
             //loads updaterole below using UserDAOJDBC
-            updaterole(req,resp);
+            updateRole(req,resp);
         }
     }
 
@@ -143,8 +141,8 @@ public class UserControllers {
     }
 
     ///////////////////////////////////////MANAGER ROLE UPDATE/////////////////////////////////////////////////////////
-    private void updaterole(HttpServletRequest req, HttpServletResponse resp) {
-        System.out.println("[LOG2] - Sanity Servlet received a UPDATETICKET PUT req at " + LocalDateTime.now());
+    private void updateRole(HttpServletRequest req, HttpServletResponse resp) {
+        //System.out.println("[LOG2] - Sanity Servlet received a UPDATETICKET PUT req at " + LocalDateTime.now());
 
         //ensure session is grabbed and is not null
         HttpSession session = req.getSession(false);
@@ -164,6 +162,9 @@ public class UserControllers {
                         resp.setStatus(200);
                         resp.setContentType("application/json");
                         resp.getWriter().write(jsonTickets);
+                    } else {
+                        resp.setStatus(403);
+                        resp.getWriter().write("Unable to change your own role.");
                     }
                 } catch (IOException e) {
                     e.printStackTrace();

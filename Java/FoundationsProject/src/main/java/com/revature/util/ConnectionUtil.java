@@ -33,9 +33,9 @@ public class ConnectionUtil {
 //        String username = System.getenv("username");
 //        String password = System.getenv("password");
 
-        String url = "";
-        String username = "";
-        String password = "";
+        String url;
+        String username;
+        String password;
         Properties prop = new Properties();
 
         try {

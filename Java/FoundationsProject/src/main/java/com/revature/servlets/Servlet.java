@@ -1,16 +1,13 @@
 package com.revature.servlets;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.controller.ReimbursementControllers;
 import com.revature.controller.UserControllers;
-import com.revature.service.UserService;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class Servlet extends HttpServlet {
 
-    public UserService us = new UserService();
     public UserControllers uc = new UserControllers();
     public ReimbursementControllers rc = new ReimbursementControllers();
 
@@ -18,21 +15,15 @@ public class Servlet extends HttpServlet {
     public void init() {
         System.out.println("[LOG] - Servlet Instantiated--------------------");
     }
-
-    ObjectMapper mapper  = new ObjectMapper();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
         //get direct path of request
         String urlPath = req.getRequestURI().substring(req.getContextPath().length());
 
         if (urlPath.startsWith("/u/")) {
-            uc.functionGet(req, resp);
-            //check that process is hitting to this point
-            //resp.getWriter().write("You are reaching /foundations-project/users GET correctly.");
+            //uc.functionGet(req, resp); -- deleted from UserControllers.
         } else if (urlPath.startsWith(("/r/"))) {
             rc.functionGet(req , resp);
-            //check that process is hitting to this point
-            //resp.getWriter().write("You are reaching /foundations-project/reimbursements GET correctly.");
         }
     }
 

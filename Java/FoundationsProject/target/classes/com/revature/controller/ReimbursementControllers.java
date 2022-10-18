@@ -9,9 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class ReimbursementControllers {
@@ -63,8 +60,6 @@ public class ReimbursementControllers {
 
     ///////////////////////////////////////MANAGER ALL TICKETS/////////////////////////////////////////////////////////
     private void allTickets(HttpServletRequest req, HttpServletResponse resp) {
-        System.out.println("[LOG2] - Sanity Servlet received a VIEWALL GET req at " + LocalDateTime.now());
-
         //ensure session is grabbed and is not null
         HttpSession session = req.getSession(false);
         //System.out.println(session.getId());
@@ -103,8 +98,6 @@ public class ReimbursementControllers {
 
     /////////////////////////////////////MANAGER PENDING TICKETS///////////////////////////////////////////////////////
     private void pendingTickets(HttpServletRequest req, HttpServletResponse resp) {
-        //System.out.println("[LOG2] - Sanity Servlet received a VIEWPENDING GET req at " + LocalDateTime.now());
-
         //ensure session is grabbed and is not null
         HttpSession session = req.getSession(false);
         //System.out.println(session.getId());
@@ -143,8 +136,6 @@ public class ReimbursementControllers {
 
     ///////////////////////////////////MANAGER CHANGE TICKET STATUS////////////////////////////////////////////////////
     private void approveTicket(HttpServletRequest req, HttpServletResponse resp) {
-        System.out.println("[LOG2] - Sanity Servlet received a UPDATETICKET PUT req at " + LocalDateTime.now());
-
         //ensure session is grabbed and is not null
         HttpSession session = req.getSession(false);
         //System.out.println(session.getId());
@@ -191,8 +182,6 @@ public class ReimbursementControllers {
     }
 
     private void denyTicket(HttpServletRequest req, HttpServletResponse resp) {
-        System.out.println("[LOG2] - Sanity Servlet received a UPDATETICKET PUT req at " + LocalDateTime.now());
-
         //ensure session is grabbed and is not null
         HttpSession session = req.getSession(false);
         //System.out.println(session.getId());
@@ -240,9 +229,9 @@ public class ReimbursementControllers {
 
     ///////////////////////////////////////EMPLOYEE NEW TICKET/////////////////////////////////////////////////////////
     private void newTicket(HttpServletRequest req, HttpServletResponse resp) {
-        //System.out.println("[LOG2] - Sanity Servlet received a NEWTICKET GET req at " + LocalDateTime.now());
 
         HttpSession session = req.getSession(false);
+
         if (session != null) {
             User u = (User) session.getAttribute("user");
             try {
@@ -256,7 +245,7 @@ public class ReimbursementControllers {
                         //write object as string
                         String jsonTicket = mapper.writeValueAsString(newReimbursement);
                         //feed responses back through postman
-                        resp.setStatus(200);
+                        resp.setStatus(201);
                         resp.setContentType("application/json");
                         resp.getWriter().write(jsonTicket);
                     } else {

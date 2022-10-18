@@ -9,19 +9,6 @@ import java.util.List;
 public class ReimbursementService {
     static ReimbursementDAO rd = new ReimbursementDaoJDBC();
 
-//    public void viewPersonalTickets(int authId) throws IOException, ClassNotFoundException {
-//        System.out.println("Using the database to return all tickets for you");
-//        List<Reimbursement> userTickets = rd.getByReimbursementAuth(authId);
-//
-//        //cycle through with enhanced for loop to print all database rows
-//        for (Reimbursement ticket : userTickets) {
-//            //Create formatted ticket, so it's not in raw format.
-//            String formattedAmount = String.format("%.02f", ticket.getAmount());
-//            System.out.println("Ticket ID: " + ticket.getId() + " || Status: " + ticket.getStatus() + " || Username: " + ticket.getUsername() +
-//                    " || AuthorId: " + ticket.getAuthId() + " || Amount: $" + formattedAmount + " || Description: " + ticket.getDescription());
-//        }
-//    }
-
     public List<Reimbursement>getTicketsByStatus(String status) {
         return rd.getTicketsByStatus(status);
     }

@@ -10,23 +10,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
 
 public class UserControllers {
 
     public UserService us = new UserService();
     ObjectMapper mapper  = new ObjectMapper();
-
-    public void functionGet(HttpServletRequest req, HttpServletResponse resp) {
-
-        String urlPath = req.getRequestURI().substring(req.getContextPath().length()); //grab url path
-        //System.out.println(urlPath);
-
-//        if (urlPath.equals("/u/logout")) {
-//            //loads logout below
-//            logout(req, resp);
-//        }
-    }
 
     public void functionPut(HttpServletRequest req, HttpServletResponse resp) {
 
@@ -67,8 +55,8 @@ public class UserControllers {
             User u = mapper.readValue(req.getInputStream(), User.class);
             //run through UserDAOJDBC register method
             User actualUser = us.login(u);
-            //write object as a string
-            String jsonUser = mapper.writeValueAsString(actualUser);
+            //write object as a string.
+            //String jsonUser = mapper.writeValueAsString(actualUser);  -- commented out in case need to use later.
 
             if (actualUser != null) {
                 //bind the object to session
@@ -76,7 +64,7 @@ public class UserControllers {
                 resp.setStatus(200);
                 resp.setHeader("username", actualUser.getUsername());
                 resp.setHeader("userid", String.valueOf(actualUser.getId()));
-                resp.getWriter().write(jsonUser);
+                resp.getWriter().write("You have successfully logged in, " + actualUser.getUsername() + "!");
             } else {
                 //return error code advising unable to add.
                 resp.setStatus(400);
@@ -142,8 +130,6 @@ public class UserControllers {
 
     ///////////////////////////////////////MANAGER ROLE UPDATE/////////////////////////////////////////////////////////
     private void updateRole(HttpServletRequest req, HttpServletResponse resp) {
-        //System.out.println("[LOG2] - Sanity Servlet received a UPDATETICKET PUT req at " + LocalDateTime.now());
-
         //ensure session is grabbed and is not null
         HttpSession session = req.getSession(false);
         //System.out.println(session.getId());

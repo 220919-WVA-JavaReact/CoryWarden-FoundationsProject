@@ -91,7 +91,7 @@ public class UserControllers {
                 throw new RuntimeException(e);
             }
         } else {
-            resp.setStatus(403);
+            resp.setStatus(404);
             try {
                 resp.getWriter().write("You are not logged in.");
             } catch (IOException e) {
@@ -120,7 +120,7 @@ public class UserControllers {
                 resp.getWriter().write(jsonUser);
             } else {
                 //return error code advising unable to add.
-                resp.setStatus(400);
+                resp.setStatus(409);
                 resp.getWriter().write("Unable to add user. Already exists in database.");
             }
         } catch (IOException e) {

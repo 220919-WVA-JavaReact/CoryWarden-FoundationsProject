@@ -1,10 +1,8 @@
 package com.revature.dao;
 
-import com.revature.Main;
 import com.revature.models.User;
 import com.revature.util.ConnectionUtil;
 
-import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +36,6 @@ public class UserDaoJDBC implements UserDAO {
                 u = new User(id, first, last, email, username, pw, role);
             }
         } catch (SQLException e) {
-            System.out.println("Unable to fetch user. Please restart the program.");
             System.exit(0);
         }
         return u;
@@ -74,7 +71,6 @@ public class UserDaoJDBC implements UserDAO {
                 u = new User(id, first, last, email, username, pw, role);
             }
         }  catch (SQLException e) {
-            System.out.println("Unable to fetch user. Please restart the program.");
             return null;
         }
         return u;
@@ -105,7 +101,6 @@ public class UserDaoJDBC implements UserDAO {
                 String role = rs.getString("role");
 
                 u = new User(id, first, last, email, username, pw, role);
-                System.out.println("Success! You are now able to login.");
                 //System.out.println("addUser sysout: " + u); --Checking where user is losing role
             }
         } catch (SQLException e) {

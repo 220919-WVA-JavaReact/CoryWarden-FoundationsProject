@@ -50,28 +50,38 @@ public class UserControllers {
 
     ////////////////////////////////////////////USER LOGIN/////////////////////////////////////////////////////////////
     public void login(HttpServletRequest req, HttpServletResponse resp) {
-        try {
-            //accept params from Postman and read
-            User u = mapper.readValue(req.getInputStream(), User.class);
-            //run through UserDAOJDBC register method
-            User actualUser = us.login(u);
-            //write object as a string.
-            //String jsonUser = mapper.writeValueAsString(actualUser);  -- commented out in case need to use later.
+        HttpSession session = req.getSession(false);
+        if (session == null) {
+            try {
+                //accept params from Postman and read
+                User u = mapper.readValue(req.getInputStream(), User.class);
+                //run through UserDAOJDBC register method
+                User actualUser = us.login(u);
+                //write object as a string.
+                //String jsonUser = mapper.writeValueAsString(actualUser);  -- commented out in case need to use later.
 
-            if (actualUser != null) {
-                //bind the object to session
-                req.getSession().setAttribute("user", actualUser);
-                resp.setStatus(200);
-                resp.setHeader("username", actualUser.getUsername());
-                resp.setHeader("userid", String.valueOf(actualUser.getId()));
-                resp.getWriter().write("You have successfully logged in, " + actualUser.getUsername() + "!");
-            } else {
-                //return error code advising unable to add.
-                resp.setStatus(400);
-                resp.getWriter().write("Invalid credentials. Please try again.");
+                if (actualUser != null) {
+                    //bind the object to session
+                    req.getSession().setAttribute("user", actualUser);
+                    resp.setStatus(200);
+                    resp.setHeader("username", actualUser.getUsername());
+                    resp.setHeader("userid", String.valueOf(actualUser.getId()));
+                    resp.getWriter().write("You have successfully logged in, " + actualUser.getUsername() + "!");
+                } else {
+                    //return error code advising unable to add.
+                    resp.setStatus(400);
+                    resp.getWriter().write("Invalid credentials. Please try again.");
+                }
+            } catch (IOException | SQLException e) {
+                e.printStackTrace();
             }
-        } catch (IOException | SQLException e) {
-            e.printStackTrace();
+        } else {
+            resp.setStatus(400);
+            try {
+                resp.getWriter().write("You are already logged in! Please logout to sign in as a new user.");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
@@ -91,7 +101,7 @@ public class UserControllers {
                 throw new RuntimeException(e);
             }
         } else {
-            resp.setStatus(403);
+            resp.setStatus(404);
             try {
                 resp.getWriter().write("You are not logged in.");
             } catch (IOException e) {
@@ -120,7 +130,7 @@ public class UserControllers {
                 resp.getWriter().write(jsonUser);
             } else {
                 //return error code advising unable to add.
-                resp.setStatus(400);
+                resp.setStatus(409);
                 resp.getWriter().write("Unable to add user. Already exists in database.");
             }
         } catch (IOException e) {

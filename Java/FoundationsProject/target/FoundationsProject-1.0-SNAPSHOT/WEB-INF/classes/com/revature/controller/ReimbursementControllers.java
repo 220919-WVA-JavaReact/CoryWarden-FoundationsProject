@@ -155,7 +155,7 @@ public class ReimbursementControllers {
                         resp.setContentType("application/json");
                         resp.getWriter().write(jsonTickets);
                     } else {
-                        resp.setStatus(400);
+                        resp.setStatus(409);
                         resp.getWriter().write("Ticket has already been processed");
                     }
                 } catch (IOException e) {
@@ -201,7 +201,7 @@ public class ReimbursementControllers {
                         resp.setContentType("application/json");
                         resp.getWriter().write(jsonTickets);
                     } else {
-                        resp.setStatus(400);
+                        resp.setStatus(409);
                         resp.getWriter().write("Ticket has already been processed");
                     }
                 } catch (IOException e) {

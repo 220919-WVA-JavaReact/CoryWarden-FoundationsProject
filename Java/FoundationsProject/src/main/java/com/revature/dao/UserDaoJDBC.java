@@ -1,10 +1,8 @@
 package com.revature.dao;
 
-import com.revature.Main;
 import com.revature.models.User;
 import com.revature.util.ConnectionUtil;
 
-import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;

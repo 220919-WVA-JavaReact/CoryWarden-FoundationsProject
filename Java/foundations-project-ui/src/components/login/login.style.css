@@ -1,0 +1,47 @@
+h4 {
+text-align: center;
+}
+
+p {
+text-align: center;
+font-size: 10px;
+}
+
+input {
+text-align: left;
+}
+
+.login-container {
+margin-left: 33%;
+margin-right: 33%;
+margin-top: 5%;
+padding-bottom: 1%;
+border: 2px;
+border-style: groove;
+
+}
+
+.input-form {
+text-align: center;
+padding: 7px;
+}
+
+.title {
+text-align: center;
+}
+
+#password {
+    padding-right: 15px;
+}
+#username {
+    padding-right: 10px;
+}
+
+
+.btnSubmit {
+margin-left: 170px;
+margin-right: 170px;
+margin-top: 15px;
+display: inline-block;
+text-align: center;
+}

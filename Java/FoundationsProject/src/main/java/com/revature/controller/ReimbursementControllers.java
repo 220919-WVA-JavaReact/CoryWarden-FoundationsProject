@@ -1,5 +1,6 @@
 package com.revature.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.models.Reimbursement;
 import com.revature.models.User;
@@ -60,6 +61,23 @@ public class ReimbursementControllers {
 
     ///////////////////////////////////////MANAGER ALL TICKETS/////////////////////////////////////////////////////////
     private void allTickets(HttpServletRequest req, HttpServletResponse resp) {
+
+//        List<Reimbursement> allTickets = rs.getAllTickets();
+//        //write object as string and return
+//        String jsonTickets = null;
+//        try {
+//            jsonTickets = mapper.writeValueAsString(allTickets);
+//        } catch (JsonProcessingException e) {
+//            throw new RuntimeException(e);
+//        }
+//        resp.setStatus(200);
+//        resp.setContentType("application/json");
+//        try {
+//            resp.getWriter().write(jsonTickets);
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+
         //ensure session is grabbed and is not null
         HttpSession session = req.getSession(false);
         //System.out.println(session.getId());

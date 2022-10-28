@@ -2,6 +2,7 @@ package com.revature.servlets;
 
 import com.revature.controller.ReimbursementControllers;
 import com.revature.controller.UserControllers;
+
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,10 +20,14 @@ public class Servlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
         //get direct path of request
         String urlPath = req.getRequestURI().substring(req.getContextPath().length());
+        // localhost:8080/foundations-project/
+
 
         if (urlPath.startsWith("/u/")) {
+            // localhost:8080/foundations-project/u/
             //uc.functionGet(req, resp); -- deleted from UserControllers.
         } else if (urlPath.startsWith(("/r/"))) {
+            // localhost:8080/foundations-project/r/
             rc.functionGet(req , resp);
         }
     }

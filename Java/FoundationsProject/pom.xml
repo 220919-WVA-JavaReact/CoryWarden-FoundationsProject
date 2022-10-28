@@ -4,12 +4,18 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.7.3</version>
+    </parent>
+
     <groupId>com.revature</groupId>
     <artifactId>FoundationsProject</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <!---Delete this comment around below text and allow packaging once ready to use WAR file -->
-          <packaging>war</packaging>
+<!--          <packaging>war</packaging>-->
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
@@ -18,6 +24,12 @@
     </properties>
 
     <dependencies>
+        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-web -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
         <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
         <dependency>
             <groupId>org.postgresql</groupId>
@@ -25,48 +37,57 @@
             <version>42.5.0</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <version>4.0.1</version>
-            <scope>provided</scope>
-        </dependency>
+<!--        No longer need this when using spring-->
+<!--        <dependency>-->
+<!--            <groupId>javax.servlet</groupId>-->
+<!--            <artifactId>javax.servlet-api</artifactId>-->
+<!--            <version>4.0.1</version>-->
+<!--            <scope>provided</scope>-->
+<!--        </dependency>-->
         <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>2.13.4</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.fasterxml.jackson.core</groupId>-->
+<!--            <artifactId>jackson-databind</artifactId>-->
+<!--            <version>2.13.4</version>-->
+<!--        </dependency>-->
+<!--        Need this to interact with HttpFilter on tomcat8-->
+<!--        <dependency>-->
+<!--            <groupId>javax</groupId>-->
+<!--            <artifactId>javaee-api</artifactId>-->
+<!--            <version>8.0</version>-->
+<!--        </dependency>-->
+
 
     </dependencies>
 
     <build>
-        <plugins>
-            <plugin>
-                <!-- Similar to how dependencies are declared, we need proj coordinates -->
-                <groupId>org.apache.tomcat.maven</groupId>
-                <artifactId>tomcat7-maven-plugin</artifactId>
-                <version>2.2</version>
-                <!-- need addition config for plugin -->
-                <configuration>
-                    <url>http://localhost:8080/manager/text</url>
-                    <server>LocalTomcat</server>
-                    <path>/foundations-project</path>
-                    <update>true</update>
-                </configuration>
-            </plugin>
-        </plugins>
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-            </resource>
-            <resource>
-                <directory>src/main/java</directory>
-            </resource>
-            <resource>
-                <directory>src/main/api</directory>
-            </resource>
-        </resources>
+<!--        No longer need tomcat with spring-->
+<!--        <plugins>-->
+<!--            <plugin>-->
+<!--                &lt;!&ndash; Similar to how dependencies are declared, we need proj coordinates &ndash;&gt;-->
+<!--                <groupId>org.apache.tomcat.maven</groupId>-->
+<!--                <artifactId>tomcat7-maven-plugin</artifactId>-->
+<!--                <version>2.2</version>-->
+<!--                &lt;!&ndash; need addition config for plugin &ndash;&gt;-->
+<!--                <configuration>-->
+<!--                    <url>http://localhost:8080/manager/text</url>-->
+<!--                    <server>LocalTomcat</server>-->
+<!--                    <path>/foundations-project</path>-->
+<!--                    <update>true</update>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
+<!--        </plugins>-->
+<!--        <resources>-->
+<!--            <resource>-->
+<!--                <directory>src/main/resources</directory>-->
+<!--            </resource>-->
+<!--            <resource>-->
+<!--                <directory>src/main/java</directory>-->
+<!--            </resource>-->
+<!--            <resource>-->
+<!--                <directory>src/main/api</directory>-->
+<!--            </resource>-->
+<!--        </resources>-->
     </build>
 
 

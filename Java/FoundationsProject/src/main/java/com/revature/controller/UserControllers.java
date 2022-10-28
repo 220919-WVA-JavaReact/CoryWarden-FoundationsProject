@@ -50,8 +50,8 @@ public class UserControllers {
 
     ////////////////////////////////////////////USER LOGIN/////////////////////////////////////////////////////////////
     public void login(HttpServletRequest req, HttpServletResponse resp) {
-        HttpSession session = req.getSession(false);
-        if (session == null) {
+//        HttpSession session = req.getSession(false);
+//        if (session == null) {
             try {
                 //accept params from Postman and read
                 User u = mapper.readValue(req.getInputStream(), User.class);
@@ -62,11 +62,14 @@ public class UserControllers {
 
                 if (actualUser != null) {
                     //bind the object to session
+                    String jsonUser = mapper.writeValueAsString(actualUser);
                     req.getSession().setAttribute("user", actualUser);
                     resp.setStatus(200);
+                    String cookie = resp.getHeader("Set-Cookie") + "; SameSite=None; Secure";
+                    resp.setHeader("Set-Cookie", cookie);
                     resp.setHeader("username", actualUser.getUsername());
                     resp.setHeader("userid", String.valueOf(actualUser.getId()));
-                    resp.getWriter().write("You have successfully logged in, " + actualUser.getUsername() + "!");
+                    resp.getWriter().write(jsonUser);
                 } else {
                     //return error code advising unable to add.
                     resp.setStatus(400);
@@ -75,14 +78,14 @@ public class UserControllers {
             } catch (IOException | SQLException e) {
                 e.printStackTrace();
             }
-        } else {
-            resp.setStatus(400);
-            try {
-                resp.getWriter().write("You are already logged in! Please logout to sign in as a new user.");
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
+//        } else {
+//            resp.setStatus(400);
+//            try {
+//                resp.getWriter().write("You are already logged in! Please logout to sign in as a new user.");
+//            } catch (IOException e) {
+//                throw new RuntimeException(e);
+//            }
+//        }
     }
 
     ///////////////////////////////////////////USER LOGOUT/////////////////////////////////////////////////////////////
